@@ -1,0 +1,18 @@
+{
+    "model_name": "temporal_retrained_logistic_regression",
+    "model_type": "LogisticRegression",
+    "training_rows": 34764,
+    "training_fraud_count": 1130,
+    "training_fraud_percentage": 3.2505,
+    "input_feature_count": 431,
+    "training_seconds": 44.0504,
+    "random_state": 42,
+    "max_iter": 1000,
+    "solver": "liblinear",
+    "class_weight": null,
+    "initial_training_rows": 20000,
+    "adaptation_training_rows": 14764,
+    "training_period_min": 86400,
+    "training_period_max": 11725727,
+    "artifact_path": "D:\\project\\DriftSentinel\\DriftSentinel\\artifacts\\temporal\\retrained_model.joblib"
+}

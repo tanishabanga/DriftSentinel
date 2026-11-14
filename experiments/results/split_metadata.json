@@ -1,0 +1,41 @@
+{
+    "strategy": "chronological",
+    "configured_ratios": {
+        "train": 0.7,
+        "validation": 0.15,
+        "test": 0.15
+    },
+    "partitions": {
+        "train": {
+            "rows": 413379,
+            "fraud_counts": {
+                "0": 398841,
+                "1": 14538
+            },
+            "fraud_percentage": 3.5169,
+            "timestamp_min": 86400,
+            "timestamp_max": 10438003
+        },
+        "validation": {
+            "rows": 88581,
+            "fraud_counts": {
+                "0": 85539,
+                "1": 3042
+            },
+            "fraud_percentage": 3.4341,
+            "timestamp_min": 10438017,
+            "timestamp_max": 13151880
+        },
+        "test": {
+            "rows": 88580,
+            "fraud_counts": {
+                "0": 85497,
+                "1": 3083
+            },
+            "fraud_percentage": 3.4805,
+            "timestamp_min": 13151945,
+            "timestamp_max": 15811131
+        }
+    },
+    "temporal_boundaries_valid": true
+}

@@ -1,0 +1,12 @@
+{
+    "experiment": "matched_size_temporal_model",
+    "training_rows": 20000,
+    "fraud_cases": 646,
+    "fraud_rate": 0.0323,
+    "feature_count": 431,
+    "training_start": 86400,
+    "training_end": 11725727,
+    "training_seconds": 16.540564999999333,
+    "model_type": "LogisticRegression",
+    "model_path": "artifacts\\temporal\\matched_size_model.joblib"
+}

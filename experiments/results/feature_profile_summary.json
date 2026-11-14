@@ -1,0 +1,13 @@
+{
+    "training_rows": 413379,
+    "model_features": 431,
+    "role_counts": {
+        "numerical": 400,
+        "categorical": 31
+    },
+    "excluded_columns": [
+        "TransactionDT",
+        "TransactionID",
+        "isFraud"
+    ]
+}

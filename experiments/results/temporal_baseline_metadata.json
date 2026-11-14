@@ -1,0 +1,14 @@
+{
+    "model_name": "temporal_logistic_regression_baseline",
+    "model_type": "LogisticRegression",
+    "training_rows": 20000,
+    "training_fraud_count": 562,
+    "training_fraud_percentage": 2.81,
+    "input_feature_count": 431,
+    "training_seconds": 12.4907,
+    "random_state": 42,
+    "max_iter": 1000,
+    "solver": "liblinear",
+    "class_weight": null,
+    "artifact_path": "artifacts\\temporal\\baseline_model.joblib"
+}

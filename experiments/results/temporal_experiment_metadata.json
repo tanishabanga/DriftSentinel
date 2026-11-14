@@ -1,0 +1,48 @@
+{
+    "experiment": "temporal_retraining_pilot",
+    "random_state": 42,
+    "training_sample_size": 20000,
+    "final_test_used": false,
+    "partitions": [
+        {
+            "name": "initial_train_sample",
+            "rows": 20000,
+            "fraud_count": 562,
+            "fraud_percentage": 2.81,
+            "timestamp_min": 86400,
+            "timestamp_max": 517208
+        },
+        {
+            "name": "initial_calibration",
+            "rows": 29527,
+            "fraud_count": 1025,
+            "fraud_percentage": 3.4714,
+            "timestamp_min": 10438017,
+            "timestamp_max": 11246665
+        },
+        {
+            "name": "adaptation_train",
+            "rows": 14764,
+            "fraud_count": 568,
+            "fraud_percentage": 3.8472,
+            "timestamp_min": 11246704,
+            "timestamp_max": 11725727
+        },
+        {
+            "name": "adaptation_calibration",
+            "rows": 14763,
+            "fraud_count": 469,
+            "fraud_percentage": 3.1769,
+            "timestamp_min": 11725745,
+            "timestamp_max": 12192900
+        },
+        {
+            "name": "evaluation",
+            "rows": 29527,
+            "fraud_count": 980,
+            "fraud_percentage": 3.319,
+            "timestamp_min": 12192911,
+            "timestamp_max": 13151880
+        }
+    ]
+}

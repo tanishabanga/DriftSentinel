@@ -1,0 +1,26 @@
+{
+    "experiment": "probability_calibration_pilot",
+    "status": "pilot_not_final",
+    "calibration_rows": 2500,
+    "evaluation_rows": 2500,
+    "methods": {
+        "uncalibrated": {
+            "brier_score": 0.04053110135281104,
+            "log_loss": 0.2477650730300227,
+            "ece": 0.03405039421842662,
+            "average_precision": 0.21170184810286258
+        },
+        "sigmoid": {
+            "brier_score": 0.03093834462760643,
+            "log_loss": 0.1435547871662258,
+            "ece": 0.011018652264313247,
+            "average_precision": 0.2117225152695395
+        },
+        "isotonic": {
+            "brier_score": 0.03383535983119663,
+            "log_loss": 0.1696788811140131,
+            "ece": 0.009580383149472087,
+            "average_precision": 0.1911495676239392
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "experiment": "matched_size_temporal_training",
+    "selection_method": "deterministic_evenly_spaced_positions",
+    "source_rows": 34764,
+    "sample_rows": 20000,
+    "fraud_cases": 646,
+    "fraud_rate": 0.0323,
+    "timestamp_start": 86400,
+    "timestamp_end": 11725727,
+    "output_path": "data\\processed\\temporal\\matched_size_train.parquet"
+}

@@ -1,0 +1,12 @@
+{
+    "experiment": "recent_only_model",
+    "training_rows": 14764,
+    "fraud_cases": 568,
+    "fraud_rate": 0.038471958818748306,
+    "feature_count": 431,
+    "training_start": 11246704,
+    "training_end": 11725727,
+    "training_seconds": 13.48852359999728,
+    "model_type": "LogisticRegression",
+    "model_path": "artifacts\\temporal\\recent_only_model.joblib"
+}

@@ -1,0 +1,4 @@
+window,rows,fraud_count,legitimate_count,fraud_percentage,timestamp_min,timestamp_max
+initial_calibration,29527,1025,28502,3.4714,10438017,11246665
+adaptation,29527,1037,28490,3.512,11246704,12192900
+evaluation,29527,980,28547,3.319,12192911,13151880

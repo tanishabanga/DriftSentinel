@@ -1,0 +1,5 @@
+policy,total_expected_cost,review_count,review_rate,fraud_approved,fraud_reviewed,fraud_blocked,legitimate_blocked
+unconstrained,3779.0668521804455,895,0.179,103,49,64,59
+capacity_100,5866.3127915293335,100,0.02,125,5,86,253
+capacity_200,5271.127086410812,200,0.04,124,12,80,186
+capacity_500,4136.692690978827,500,0.1,112,35,69,85
