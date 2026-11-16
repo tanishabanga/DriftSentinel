@@ -1,4 +1,3 @@
-
 """Baseline fraud classification experiments."""
 
 from time import perf_counter
@@ -39,9 +38,9 @@ def build_logistic_regression_pipeline(X: pd.DataFrame) -> Pipeline:
                     random_state=42,
                 ),
             ),
-        ]
+        ],
+        verbose=True,
     )
-
 
 
 def train_logistic_regression(
@@ -75,24 +74,12 @@ def train_logistic_regression(
     results = {
         "model": "Logistic Regression",
         "threshold": threshold,
-        "average_precision": average_precision_score(
-            y_validation, probabilities
-        ),
-        "roc_auc": roc_auc_score(
-            y_validation, probabilities
-        ),
-        "precision": precision_score(
-            y_validation, predictions, zero_division=0
-        ),
-        "recall": recall_score(
-            y_validation, predictions, zero_division=0
-        ),
-        "f1": f1_score(
-            y_validation, predictions, zero_division=0
-        ),
-        "confusion_matrix": confusion_matrix(
-            y_validation, predictions
-        ).tolist(),
+        "average_precision": average_precision_score(y_validation, probabilities),
+        "roc_auc": roc_auc_score(y_validation, probabilities),
+        "precision": precision_score(y_validation, predictions, zero_division=0),
+        "recall": recall_score(y_validation, predictions, zero_division=0),
+        "f1": f1_score(y_validation, predictions, zero_division=0),
+        "confusion_matrix": confusion_matrix(y_validation, predictions).tolist(),
         "training_time_seconds": training_time,
         "inference_time_seconds": inference_time,
         "validation_rows": len(validation_df),
