@@ -1,0 +1,15 @@
+probability_strategy,cost_scenario,expected_cost_winner,expected_cost_capacity,minimum_expected_cost,realized_cost_winner,realized_cost_capacity,minimum_realized_cost,winners_agree
+sigmoid,baseline,unconstrained,,40091.02258035744,unconstrained,,45334.0,True
+sigmoid,expensive_review,unconstrained,,64078.01603016205,unconstrained,,76410.0,True
+sigmoid,higher_false_block_cost,unconstrained,,40601.937235007266,unconstrained,,46082.0,True
+sigmoid,higher_fraud_loss,unconstrained,,54631.96825418677,unconstrained,,61297.0,True
+sigmoid,higher_review_expense,unconstrained,,56385.46666573925,unconstrained,,66915.0,True
+sigmoid,severe_false_block_cost,unconstrained,,40911.32990901504,unconstrained,,46898.0,True
+sigmoid,severe_fraud_loss,unconstrained,,72946.59977411051,unconstrained,,77930.0,True
+uncalibrated,baseline,unconstrained,,41013.11599096353,unconstrained,,45323.0,True
+uncalibrated,expensive_review,unconstrained,,63170.52882258664,unconstrained,,77760.0,True
+uncalibrated,higher_false_block_cost,unconstrained,,41474.844622519566,unconstrained,,46085.0,True
+uncalibrated,higher_fraud_loss,unconstrained,,56806.76260254579,unconstrained,,61267.0,True
+uncalibrated,higher_review_expense,unconstrained,,56294.00052369083,unconstrained,,67028.0,True
+uncalibrated,severe_false_block_cost,unconstrained,,41758.7898340493,unconstrained,,46719.0,True
+uncalibrated,severe_fraud_loss,unconstrained,,75894.65741111641,unconstrained,,76271.0,True

@@ -1,0 +1,41 @@
+{
+    "experiment": "xgboost_chronological_calibration",
+    "status": "completed",
+    "base_model": "XGBoost",
+    "calibration_method_comparison": [
+        "uncalibrated",
+        "sigmoid",
+        "isotonic"
+    ],
+    "split_method": "chronological_50_50",
+    "total_validation_rows": 88581,
+    "calibration_rows": 44290,
+    "evaluation_rows": 44291,
+    "calibration_fraud_rate": 0.03596748701738541,
+    "evaluation_fraud_rate": 0.0327154500914407,
+    "calibration_start_timestamp": 10438017,
+    "calibration_end_timestamp": 11725712,
+    "evaluation_start_timestamp": 11725727,
+    "evaluation_end_timestamp": 13151880,
+    "test_set_used": false,
+    "metrics": {
+        "uncalibrated": {
+            "brier_score": 0.021983191718003284,
+            "log_loss": 0.09060410917120153,
+            "ece": 0.005692783669469802,
+            "average_precision": 0.4910301896312934
+        },
+        "sigmoid": {
+            "brier_score": 0.02197020867444064,
+            "log_loss": 0.09075295757742087,
+            "ece": 0.005008436221814746,
+            "average_precision": 0.4910301896312934
+        },
+        "isotonic": {
+            "brier_score": 0.022129203775474966,
+            "log_loss": 0.09557388537972512,
+            "ece": 0.005712781509073881,
+            "average_precision": 0.4758699728393212
+        }
+    }
+}

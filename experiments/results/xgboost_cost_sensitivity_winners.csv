@@ -1,0 +1,8 @@
+cost_scenario,expected_cost_winner,expected_cost_capacity,minimum_expected_cost,realized_cost_winner,realized_cost_capacity,minimum_realized_cost,winners_agree
+baseline,unconstrained,,81984.35237273603,unconstrained,,85274.0,True
+expensive_review,unconstrained,,125380.34180198825,unconstrained,,141880.0,True
+higher_false_block_cost,unconstrained,,83127.51481905609,unconstrained,,86879.0,True
+higher_fraud_loss,unconstrained,,113521.27653982735,unconstrained,,114931.0,True
+higher_review_expense,unconstrained,,112126.64496299095,unconstrained,,123223.0,True
+severe_false_block_cost,unconstrained,,83866.93391284376,unconstrained,,88054.0,True
+severe_fraud_loss,unconstrained,,151324.99437998148,unconstrained,,148536.0,True
