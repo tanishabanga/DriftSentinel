@@ -27,6 +27,12 @@ dev = [
     "psutil"
 ]
 
+api = [
+    "fastapi",
+    "uvicorn[standard]",
+    "httpx"
+]
+
 [tool.setuptools.packages.find]
 where = ["src"]
 
