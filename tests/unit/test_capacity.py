@@ -62,3 +62,37 @@ def test_invalid_non_integer_capacity():
             [0.1, 0.5],
             review_capacity=1.5,
         )
+
+
+
+def test_no_transactions_are_reviewed_when_review_is_never_beneficial():
+    from driftsentinel.policies.costs import DecisionCosts
+
+    costs = DecisionCosts(
+        approve_legitimate=0,
+        approve_fraud=1,
+        review_legitimate=10,
+        review_fraud=10,
+        block_legitimate=10,
+        block_fraud=0,
+    )
+
+    result = make_capacity_constrained_decisions(
+        [0.1, 0.5, 0.9],
+        review_capacity=3,
+        costs=costs,
+    )
+
+    assert (result["action"] == "review").sum() == 0
+
+
+def test_sufficient_capacity_reviews_every_eligible_transaction():
+    result = make_capacity_constrained_decisions(
+        [0.01, 0.10, 0.30, 0.50, 0.80],
+        review_capacity=100,
+    )
+
+    eligible_count = (result["review_savings"] > 0).sum()
+    reviewed_count = (result["action"] == "review").sum()
+
+    assert reviewed_count == eligible_count

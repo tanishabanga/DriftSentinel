@@ -102,3 +102,4 @@ def test_missing_timestamp_is_rejected():
         assert False, "Expected ValueError"
     except ValueError as error:
         assert "missing values" in str(error)
+

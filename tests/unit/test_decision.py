@@ -59,3 +59,13 @@ def test_invalid_probabilities_raise_error(probabilities):
 def test_negative_cost_raises_error():
     with pytest.raises(ValueError):
         DecisionCosts(approve_fraud=-10)
+
+
+
+@pytest.mark.parametrize(
+    "cost",
+    [np.nan, np.inf, -np.inf],
+)
+def test_non_finite_cost_raises_error(cost):
+    with pytest.raises(ValueError):
+        DecisionCosts(approve_fraud=cost)

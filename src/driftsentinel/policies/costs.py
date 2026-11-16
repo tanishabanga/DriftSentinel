@@ -2,6 +2,7 @@
 """Configurable costs for fraud decision policies."""
 
 from dataclasses import dataclass
+from math import isfinite
 
 
 @dataclass(frozen=True)
@@ -19,5 +20,7 @@ class DecisionCosts:
 
     def __post_init__(self):
         for name, value in self.__dict__.items():
-            if value < 0:
-                raise ValueError(f"{name} cannot be negative.")
+            if not isfinite(value) or value < 0:
+                raise ValueError(
+                    f"{name} must be a finite, non-negative number."
+                )

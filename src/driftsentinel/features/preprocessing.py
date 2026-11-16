@@ -110,28 +110,34 @@ def build_preprocessor(X: pd.DataFrame) -> ColumnTransformer:
                 ),
             ),
             ("scaler", StandardScaler()),
+            (
+                "to_float32",
+                FunctionTransformer(
+                    lambda X: X.astype(np.float32),
+                ),
+            ),
         ]
     )
 
     categorical_pipeline = Pipeline(
-    steps=[
-        (
-            "to_string",
-            FunctionTransformer(
-                 categorical_to_string,
-                feature_names_out="one-to-one",
+        steps=[
+            (
+                "to_string",
+                FunctionTransformer(
+                    categorical_to_string,
+                    feature_names_out="one-to-one",
+                ),
             ),
-        ),
-        (
-            "encoder",
-            OneHotEncoder(
-                handle_unknown="infrequent_if_exist",
-                min_frequency=0.001,
-                sparse_output=True,
-                dtype=np.float32,
+            (
+                "encoder",
+                OneHotEncoder(
+                    handle_unknown="infrequent_if_exist",
+                    min_frequency=0.001,
+                    sparse_output=True,
+                    dtype=np.float32,
+                ),
             ),
-        ),
-    ]
+        ]
 )
 
     transformers = []
