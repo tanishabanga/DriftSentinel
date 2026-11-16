@@ -1,0 +1,933 @@
+{
+  "baseline": {
+    "label": "Baseline costs",
+    "sigmoid": [
+      {
+        "capacity": "0%",
+        "realizedCost": 76410,
+        "expectedCost": 64078,
+        "fraudApproved": 579,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 1851,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.0025%",
+        "realizedCost": 75525,
+        "expectedCost": 63330,
+        "fraudApproved": 576,
+        "fraudReviewed": 15,
+        "legitimateBlocked": 1766,
+        "reviewCount": 110
+      },
+      {
+        "capacity": "0.005%",
+        "realizedCost": 74819,
+        "expectedCost": 62581,
+        "fraudApproved": 575,
+        "fraudReviewed": 29,
+        "legitimateBlocked": 1679,
+        "reviewCount": 221
+      },
+      {
+        "capacity": "0.01%",
+        "realizedCost": 73407,
+        "expectedCost": 61109,
+        "fraudApproved": 572,
+        "fraudReviewed": 51,
+        "legitimateBlocked": 1517,
+        "reviewCount": 442
+      },
+      {
+        "capacity": "0.02%",
+        "realizedCost": 70726,
+        "expectedCost": 58240,
+        "fraudApproved": 567,
+        "fraudReviewed": 102,
+        "legitimateBlocked": 1195,
+        "reviewCount": 885
+      },
+      {
+        "capacity": "0.03%",
+        "realizedCost": 68298,
+        "expectedCost": 55529,
+        "fraudApproved": 560,
+        "fraudReviewed": 154,
+        "legitimateBlocked": 918,
+        "reviewCount": 1328
+      },
+      {
+        "capacity": "0.05%",
+        "realizedCost": 62463,
+        "expectedCost": 50781,
+        "fraudApproved": 517,
+        "fraudReviewed": 285,
+        "legitimateBlocked": 548,
+        "reviewCount": 2214
+      }
+    ],
+    "uncalibrated": [
+      {
+        "capacity": "0%",
+        "realizedCost": 77760,
+        "expectedCost": 63171,
+        "fraudApproved": 632,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 1456,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.0025%",
+        "realizedCost": 77155,
+        "expectedCost": 62423,
+        "fraudApproved": 631,
+        "fraudReviewed": 15,
+        "legitimateBlocked": 1379,
+        "reviewCount": 110
+      },
+      {
+        "capacity": "0.005%",
+        "realizedCost": 76339,
+        "expectedCost": 61674,
+        "fraudApproved": 629,
+        "fraudReviewed": 29,
+        "legitimateBlocked": 1291,
+        "reviewCount": 221
+      },
+      {
+        "capacity": "0.01%",
+        "realizedCost": 74584,
+        "expectedCost": 60204,
+        "fraudApproved": 623,
+        "fraudReviewed": 50,
+        "legitimateBlocked": 1125,
+        "reviewCount": 442
+      },
+      {
+        "capacity": "0.02%",
+        "realizedCost": 71967,
+        "expectedCost": 57370,
+        "fraudApproved": 614,
+        "fraudReviewed": 119,
+        "legitimateBlocked": 844,
+        "reviewCount": 885
+      },
+      {
+        "capacity": "0.03%",
+        "realizedCost": 68629,
+        "expectedCost": 54734,
+        "fraudApproved": 593,
+        "fraudReviewed": 191,
+        "legitimateBlocked": 610,
+        "reviewCount": 1328
+      },
+      {
+        "capacity": "0.05%",
+        "realizedCost": 63244,
+        "expectedCost": 50277,
+        "fraudApproved": 548,
+        "fraudReviewed": 312,
+        "legitimateBlocked": 308,
+        "reviewCount": 2214
+      }
+    ]
+  },
+  "higher_fraud_loss": {
+    "label": "Higher fraud loss",
+    "sigmoid": [
+      {
+        "capacity": "0%",
+        "realizedCost": 123780,
+        "expectedCost": 103343,
+        "fraudApproved": 439,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 3598,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.0025%",
+        "realizedCost": 123048,
+        "expectedCost": 102533,
+        "fraudApproved": 439,
+        "fraudReviewed": 6,
+        "legitimateBlocked": 3501,
+        "reviewCount": 110
+      },
+      {
+        "capacity": "0.005%",
+        "realizedCost": 122042,
+        "expectedCost": 101717,
+        "fraudApproved": 438,
+        "fraudReviewed": 10,
+        "legitimateBlocked": 3397,
+        "reviewCount": 221
+      },
+      {
+        "capacity": "0.01%",
+        "realizedCost": 120652,
+        "expectedCost": 100098,
+        "fraudApproved": 438,
+        "fraudReviewed": 26,
+        "legitimateBlocked": 3209,
+        "reviewCount": 442
+      },
+      {
+        "capacity": "0.02%",
+        "realizedCost": 117474,
+        "expectedCost": 96882,
+        "fraudApproved": 437,
+        "fraudReviewed": 48,
+        "legitimateBlocked": 2816,
+        "reviewCount": 885
+      },
+      {
+        "capacity": "0.03%",
+        "realizedCost": 114124,
+        "expectedCost": 93713,
+        "fraudApproved": 433,
+        "fraudReviewed": 86,
+        "legitimateBlocked": 2461,
+        "reviewCount": 1328
+      },
+      {
+        "capacity": "0.05%",
+        "realizedCost": 107366,
+        "expectedCost": 87559,
+        "fraudApproved": 423,
+        "fraudReviewed": 166,
+        "legitimateBlocked": 1784,
+        "reviewCount": 2214
+      }
+    ],
+    "uncalibrated": [
+      {
+        "capacity": "0%",
+        "realizedCost": 124900,
+        "expectedCost": 104371,
+        "fraudApproved": 467,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 3150,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.0025%",
+        "realizedCost": 124142,
+        "expectedCost": 103560,
+        "fraudApproved": 467,
+        "fraudReviewed": 4,
+        "legitimateBlocked": 3051,
+        "reviewCount": 110
+      },
+      {
+        "capacity": "0.005%",
+        "realizedCost": 123333,
+        "expectedCost": 102744,
+        "fraudApproved": 467,
+        "fraudReviewed": 7,
+        "legitimateBlocked": 2947,
+        "reviewCount": 221
+      },
+      {
+        "capacity": "0.01%",
+        "realizedCost": 121956,
+        "expectedCost": 101125,
+        "fraudApproved": 467,
+        "fraudReviewed": 24,
+        "legitimateBlocked": 2760,
+        "reviewCount": 442
+      },
+      {
+        "capacity": "0.02%",
+        "realizedCost": 118763,
+        "expectedCost": 97911,
+        "fraudApproved": 465,
+        "fraudReviewed": 61,
+        "legitimateBlocked": 2381,
+        "reviewCount": 885
+      },
+      {
+        "capacity": "0.03%",
+        "realizedCost": 115645,
+        "expectedCost": 94746,
+        "fraudApproved": 462,
+        "fraudReviewed": 103,
+        "legitimateBlocked": 2028,
+        "reviewCount": 1328
+      },
+      {
+        "capacity": "0.05%",
+        "realizedCost": 108899,
+        "expectedCost": 88602,
+        "fraudApproved": 451,
+        "fraudReviewed": 197,
+        "legitimateBlocked": 1368,
+        "reviewCount": 2214
+      }
+    ]
+  },
+  "severe_fraud_loss": {
+    "label": "Severe fraud loss",
+    "sigmoid": [
+      {
+        "capacity": "0%",
+        "realizedCost": 200340,
+        "expectedCost": 178930,
+        "fraudApproved": 234,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 8334,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.0025%",
+        "realizedCost": 199522,
+        "expectedCost": 178078,
+        "fraudApproved": 234,
+        "fraudReviewed": 4,
+        "legitimateBlocked": 8229,
+        "reviewCount": 110
+      },
+      {
+        "capacity": "0.005%",
+        "realizedCost": 198703,
+        "expectedCost": 177219,
+        "fraudApproved": 234,
+        "fraudReviewed": 7,
+        "legitimateBlocked": 8124,
+        "reviewCount": 221
+      },
+      {
+        "capacity": "0.01%",
+        "realizedCost": 196603,
+        "expectedCost": 175510,
+        "fraudApproved": 233,
+        "fraudReviewed": 13,
+        "legitimateBlocked": 7918,
+        "reviewCount": 442
+      },
+      {
+        "capacity": "0.02%",
+        "realizedCost": 193338,
+        "expectedCost": 172089,
+        "fraudApproved": 233,
+        "fraudReviewed": 26,
+        "legitimateBlocked": 7499,
+        "reviewCount": 885
+      },
+      {
+        "capacity": "0.03%",
+        "realizedCost": 190077,
+        "expectedCost": 168676,
+        "fraudApproved": 233,
+        "fraudReviewed": 37,
+        "legitimateBlocked": 7081,
+        "reviewCount": 1328
+      },
+      {
+        "capacity": "0.05%",
+        "realizedCost": 183731,
+        "expectedCost": 161875,
+        "fraudApproved": 233,
+        "fraudReviewed": 71,
+        "legitimateBlocked": 6259,
+        "reviewCount": 2214
+      }
+    ],
+    "uncalibrated": [
+      {
+        "capacity": "0%",
+        "realizedCost": 201870,
+        "expectedCost": 185902,
+        "fraudApproved": 243,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 8037,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.0025%",
+        "realizedCost": 201039,
+        "expectedCost": 185050,
+        "fraudApproved": 243,
+        "fraudReviewed": 3,
+        "legitimateBlocked": 7931,
+        "reviewCount": 110
+      },
+      {
+        "capacity": "0.005%",
+        "realizedCost": 200184,
+        "expectedCost": 184191,
+        "fraudApproved": 243,
+        "fraudReviewed": 4,
+        "legitimateBlocked": 7823,
+        "reviewCount": 221
+      },
+      {
+        "capacity": "0.01%",
+        "realizedCost": 198557,
+        "expectedCost": 182481,
+        "fraudApproved": 243,
+        "fraudReviewed": 11,
+        "legitimateBlocked": 7614,
+        "reviewCount": 442
+      },
+      {
+        "capacity": "0.02%",
+        "realizedCost": 195233,
+        "expectedCost": 179059,
+        "fraudApproved": 243,
+        "fraudReviewed": 21,
+        "legitimateBlocked": 7190,
+        "reviewCount": 885
+      },
+      {
+        "capacity": "0.03%",
+        "realizedCost": 191501,
+        "expectedCost": 175644,
+        "fraudApproved": 242,
+        "fraudReviewed": 35,
+        "legitimateBlocked": 6774,
+        "reviewCount": 1328
+      },
+      {
+        "capacity": "0.05%",
+        "realizedCost": 185235,
+        "expectedCost": 168839,
+        "fraudApproved": 242,
+        "fraudReviewed": 79,
+        "legitimateBlocked": 5957,
+        "reviewCount": 2214
+      }
+    ]
+  },
+  "higher_review_expense": {
+    "label": "Higher review expense",
+    "sigmoid": [
+      {
+        "capacity": "0%",
+        "realizedCost": 76410,
+        "expectedCost": 64078,
+        "fraudApproved": 579,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 1851,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.0025%",
+        "realizedCost": 75855,
+        "expectedCost": 63660,
+        "fraudApproved": 576,
+        "fraudReviewed": 15,
+        "legitimateBlocked": 1766,
+        "reviewCount": 110
+      },
+      {
+        "capacity": "0.005%",
+        "realizedCost": 75482,
+        "expectedCost": 63244,
+        "fraudApproved": 575,
+        "fraudReviewed": 29,
+        "legitimateBlocked": 1679,
+        "reviewCount": 221
+      },
+      {
+        "capacity": "0.01%",
+        "realizedCost": 74733,
+        "expectedCost": 62435,
+        "fraudApproved": 572,
+        "fraudReviewed": 51,
+        "legitimateBlocked": 1517,
+        "reviewCount": 442
+      },
+      {
+        "capacity": "0.02%",
+        "realizedCost": 73381,
+        "expectedCost": 60895,
+        "fraudApproved": 567,
+        "fraudReviewed": 102,
+        "legitimateBlocked": 1195,
+        "reviewCount": 885
+      },
+      {
+        "capacity": "0.03%",
+        "realizedCost": 72282,
+        "expectedCost": 59513,
+        "fraudApproved": 560,
+        "fraudReviewed": 154,
+        "legitimateBlocked": 918,
+        "reviewCount": 1328
+      },
+      {
+        "capacity": "0.05%",
+        "realizedCost": 69105,
+        "expectedCost": 57423,
+        "fraudApproved": 517,
+        "fraudReviewed": 285,
+        "legitimateBlocked": 548,
+        "reviewCount": 2214
+      }
+    ],
+    "uncalibrated": [
+      {
+        "capacity": "0%",
+        "realizedCost": 77760,
+        "expectedCost": 63171,
+        "fraudApproved": 632,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 1456,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.0025%",
+        "realizedCost": 77485,
+        "expectedCost": 62753,
+        "fraudApproved": 631,
+        "fraudReviewed": 15,
+        "legitimateBlocked": 1379,
+        "reviewCount": 110
+      },
+      {
+        "capacity": "0.005%",
+        "realizedCost": 77002,
+        "expectedCost": 62337,
+        "fraudApproved": 629,
+        "fraudReviewed": 29,
+        "legitimateBlocked": 1291,
+        "reviewCount": 221
+      },
+      {
+        "capacity": "0.01%",
+        "realizedCost": 75910,
+        "expectedCost": 61530,
+        "fraudApproved": 623,
+        "fraudReviewed": 50,
+        "legitimateBlocked": 1125,
+        "reviewCount": 442
+      },
+      {
+        "capacity": "0.02%",
+        "realizedCost": 74622,
+        "expectedCost": 60025,
+        "fraudApproved": 614,
+        "fraudReviewed": 119,
+        "legitimateBlocked": 844,
+        "reviewCount": 885
+      },
+      {
+        "capacity": "0.03%",
+        "realizedCost": 72613,
+        "expectedCost": 58718,
+        "fraudApproved": 593,
+        "fraudReviewed": 191,
+        "legitimateBlocked": 610,
+        "reviewCount": 1328
+      },
+      {
+        "capacity": "0.05%",
+        "realizedCost": 69886,
+        "expectedCost": 56919,
+        "fraudApproved": 548,
+        "fraudReviewed": 312,
+        "legitimateBlocked": 308,
+        "reviewCount": 2214
+      }
+    ]
+  },
+  "expensive_review": {
+    "label": "Expensive review",
+    "sigmoid": [
+      {
+        "capacity": "0%",
+        "realizedCost": 76410,
+        "expectedCost": 64078,
+        "fraudApproved": 579,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 1851,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.0025%",
+        "realizedCost": 76410,
+        "expectedCost": 64078,
+        "fraudApproved": 579,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 1851,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.005%",
+        "realizedCost": 76410,
+        "expectedCost": 64078,
+        "fraudApproved": 579,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 1851,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.01%",
+        "realizedCost": 76410,
+        "expectedCost": 64078,
+        "fraudApproved": 579,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 1851,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.02%",
+        "realizedCost": 76410,
+        "expectedCost": 64078,
+        "fraudApproved": 579,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 1851,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.03%",
+        "realizedCost": 76410,
+        "expectedCost": 64078,
+        "fraudApproved": 579,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 1851,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.05%",
+        "realizedCost": 76410,
+        "expectedCost": 64078,
+        "fraudApproved": 579,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 1851,
+        "reviewCount": 0
+      }
+    ],
+    "uncalibrated": [
+      {
+        "capacity": "0%",
+        "realizedCost": 77760,
+        "expectedCost": 63171,
+        "fraudApproved": 632,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 1456,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.0025%",
+        "realizedCost": 77760,
+        "expectedCost": 63171,
+        "fraudApproved": 632,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 1456,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.005%",
+        "realizedCost": 77760,
+        "expectedCost": 63171,
+        "fraudApproved": 632,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 1456,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.01%",
+        "realizedCost": 77760,
+        "expectedCost": 63171,
+        "fraudApproved": 632,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 1456,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.02%",
+        "realizedCost": 77760,
+        "expectedCost": 63171,
+        "fraudApproved": 632,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 1456,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.03%",
+        "realizedCost": 77760,
+        "expectedCost": 63171,
+        "fraudApproved": 632,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 1456,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.05%",
+        "realizedCost": 77760,
+        "expectedCost": 63171,
+        "fraudApproved": 632,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 1456,
+        "reviewCount": 0
+      }
+    ]
+  },
+  "higher_false_block_cost": {
+    "label": "Higher false-block cost",
+    "sigmoid": [
+      {
+        "capacity": "0%",
+        "realizedCost": 93525,
+        "expectedCost": 79303,
+        "fraudApproved": 758,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 709,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.0025%",
+        "realizedCost": 91777,
+        "expectedCost": 77418,
+        "fraudApproved": 756,
+        "fraudReviewed": 19,
+        "legitimateBlocked": 636,
+        "reviewCount": 110
+      },
+      {
+        "capacity": "0.005%",
+        "realizedCost": 90421,
+        "expectedCost": 75577,
+        "fraudApproved": 753,
+        "fraudReviewed": 43,
+        "legitimateBlocked": 582,
+        "reviewCount": 221
+      },
+      {
+        "capacity": "0.01%",
+        "realizedCost": 86487,
+        "expectedCost": 72094,
+        "fraudApproved": 739,
+        "fraudReviewed": 76,
+        "legitimateBlocked": 459,
+        "reviewCount": 442
+      },
+      {
+        "capacity": "0.02%",
+        "realizedCost": 79227,
+        "expectedCost": 65955,
+        "fraudApproved": 697,
+        "fraudReviewed": 169,
+        "legitimateBlocked": 290,
+        "reviewCount": 885
+      },
+      {
+        "capacity": "0.03%",
+        "realizedCost": 75000,
+        "expectedCost": 60966,
+        "fraudApproved": 665,
+        "fraudReviewed": 273,
+        "legitimateBlocked": 201,
+        "reviewCount": 1328
+      },
+      {
+        "capacity": "0.05%",
+        "realizedCost": 66303,
+        "expectedCost": 53688,
+        "fraudApproved": 574,
+        "fraudReviewed": 450,
+        "legitimateBlocked": 125,
+        "reviewCount": 2214
+      }
+    ],
+    "uncalibrated": [
+      {
+        "capacity": "0%",
+        "realizedCost": 93800,
+        "expectedCost": 76077,
+        "fraudApproved": 807,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 524,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.0025%",
+        "realizedCost": 91671,
+        "expectedCost": 74197,
+        "fraudApproved": 800,
+        "fraudReviewed": 17,
+        "legitimateBlocked": 456,
+        "reviewCount": 110
+      },
+      {
+        "capacity": "0.005%",
+        "realizedCost": 90106,
+        "expectedCost": 72367,
+        "fraudApproved": 796,
+        "fraudReviewed": 38,
+        "legitimateBlocked": 398,
+        "reviewCount": 221
+      },
+      {
+        "capacity": "0.01%",
+        "realizedCost": 85901,
+        "expectedCost": 68939,
+        "fraudApproved": 777,
+        "fraudReviewed": 89,
+        "legitimateBlocked": 282,
+        "reviewCount": 442
+      },
+      {
+        "capacity": "0.02%",
+        "realizedCost": 80750,
+        "expectedCost": 63084,
+        "fraudApproved": 740,
+        "fraudReviewed": 235,
+        "legitimateBlocked": 171,
+        "reviewCount": 885
+      },
+      {
+        "capacity": "0.03%",
+        "realizedCost": 74577,
+        "expectedCost": 58505,
+        "fraudApproved": 681,
+        "fraudReviewed": 357,
+        "legitimateBlocked": 110,
+        "reviewCount": 1328
+      },
+      {
+        "capacity": "0.05%",
+        "realizedCost": 66752,
+        "expectedCost": 52247,
+        "fraudApproved": 591,
+        "fraudReviewed": 508,
+        "legitimateBlocked": 68,
+        "reviewCount": 2214
+      }
+    ]
+  },
+  "severe_false_block_cost": {
+    "label": "Severe false-block cost",
+    "sigmoid": [
+      {
+        "capacity": "0%",
+        "realizedCost": 102050,
+        "expectedCost": 90206,
+        "fraudApproved": 845,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 351,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.0025%",
+        "realizedCost": 99051,
+        "expectedCost": 86941,
+        "fraudApproved": 834,
+        "fraudReviewed": 27,
+        "legitimateBlocked": 307,
+        "reviewCount": 110
+      },
+      {
+        "capacity": "0.005%",
+        "realizedCost": 96269,
+        "expectedCost": 83825,
+        "fraudApproved": 826,
+        "fraudReviewed": 59,
+        "legitimateBlocked": 261,
+        "reviewCount": 221
+      },
+      {
+        "capacity": "0.01%",
+        "realizedCost": 92224,
+        "expectedCost": 78256,
+        "fraudApproved": 809,
+        "fraudReviewed": 130,
+        "legitimateBlocked": 201,
+        "reviewCount": 442
+      },
+      {
+        "capacity": "0.02%",
+        "realizedCost": 84336,
+        "expectedCost": 69416,
+        "fraudApproved": 756,
+        "fraudReviewed": 272,
+        "legitimateBlocked": 123,
+        "reviewCount": 885
+      },
+      {
+        "capacity": "0.03%",
+        "realizedCost": 77575,
+        "expectedCost": 63078,
+        "fraudApproved": 694,
+        "fraudReviewed": 373,
+        "legitimateBlocked": 88,
+        "reviewCount": 1328
+      },
+      {
+        "capacity": "0.05%",
+        "realizedCost": 68203,
+        "expectedCost": 54833,
+        "fraudApproved": 593,
+        "fraudReviewed": 525,
+        "legitimateBlocked": 58,
+        "reviewCount": 2214
+      }
+    ],
+    "uncalibrated": [
+      {
+        "capacity": "0%",
+        "realizedCost": 102650,
+        "expectedCost": 85291,
+        "fraudApproved": 910,
+        "fraudReviewed": 0,
+        "legitimateBlocked": 233,
+        "reviewCount": 0
+      },
+      {
+        "capacity": "0.0025%",
+        "realizedCost": 99488,
+        "expectedCost": 82056,
+        "fraudApproved": 891,
+        "fraudReviewed": 56,
+        "legitimateBlocked": 200,
+        "reviewCount": 110
+      },
+      {
+        "capacity": "0.005%",
+        "realizedCost": 96019,
+        "expectedCost": 79024,
+        "fraudApproved": 869,
+        "fraudReviewed": 109,
+        "legitimateBlocked": 167,
+        "reviewCount": 221
+      },
+      {
+        "capacity": "0.01%",
+        "realizedCost": 91160,
+        "expectedCost": 73613,
+        "fraudApproved": 836,
+        "fraudReviewed": 192,
+        "legitimateBlocked": 122,
+        "reviewCount": 442
+      },
+      {
+        "capacity": "0.02%",
+        "realizedCost": 83836,
+        "expectedCost": 65431,
+        "fraudApproved": 777,
+        "fraudReviewed": 322,
+        "legitimateBlocked": 68,
+        "reviewCount": 885
+      },
+      {
+        "capacity": "0.03%",
+        "realizedCost": 77114,
+        "expectedCost": 59969,
+        "fraudApproved": 708,
+        "fraudReviewed": 436,
+        "legitimateBlocked": 47,
+        "reviewCount": 1328
+      },
+      {
+        "capacity": "0.05%",
+        "realizedCost": 68412,
+        "expectedCost": 53091,
+        "fraudApproved": 604,
+        "fraudReviewed": 578,
+        "legitimateBlocked": 37,
+        "reviewCount": 2214
+      }
+    ]
+  }
+}
