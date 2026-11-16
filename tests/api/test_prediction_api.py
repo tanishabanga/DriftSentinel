@@ -1,6 +1,5 @@
 
 import pytest
-
 from fastapi.testclient import TestClient
 
 from driftsentinel.api.main import app
@@ -11,6 +10,8 @@ class FakeInferenceService:
 
     def __init__(self):
         self.calls = []
+        self.model = object()
+        self.calibrator = object()
 
     def predict(self, transactions):
         import pandas as pd
@@ -143,6 +144,7 @@ def test_inference_service_initialized_once(client):
 
 def test_inference_service_created_once_per_lifespan(monkeypatch):
     from fastapi.testclient import TestClient
+
     from driftsentinel.api import main
 
     initialization_count = 0
@@ -163,3 +165,48 @@ def test_inference_service_created_once_per_lifespan(monkeypatch):
         assert initialization_count == 1
 
     assert initialization_count == 1
+
+
+
+def test_health_reports_loaded_components(client):
+    test_client, _ = client
+
+    response = test_client.get("/health")
+
+    assert response.status_code == 200
+    assert response.json() == {
+        "status": "healthy",
+        "service": "DriftSentinel API",
+        "model_loaded": True,
+        "calibrator_loaded": True,
+    }
+
+
+def test_health_returns_503_when_inference_service_is_missing(client):
+    test_client, _ = client
+    test_client.app.state.inference_service = None
+
+    response = test_client.get("/health")
+
+    assert response.status_code == 503
+    assert response.json()["detail"] == {
+        "status": "unavailable",
+        "service": "DriftSentinel API",
+        "model_loaded": False,
+        "calibrator_loaded": False,
+    }
+
+
+@pytest.mark.parametrize("component", ["model", "calibrator"])
+def test_health_returns_503_when_component_is_missing(client, component):
+    test_client, fake_service = client
+    setattr(fake_service, component, None)
+
+    response = test_client.get("/health")
+
+    assert response.status_code == 503
+
+    detail = response.json()["detail"]
+    assert detail["status"] == "unavailable"
+    assert detail["model_loaded"] is (component != "model")
+    assert detail["calibrator_loaded"] is (component != "calibrator")
