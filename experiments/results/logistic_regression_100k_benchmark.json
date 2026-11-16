@@ -1,0 +1,33 @@
+{
+    "experiment": "logistic_regression_100000_benchmark",
+    "status": "completed",
+    "model": "LogisticRegression",
+    "configuration": {
+        "solver": "liblinear",
+        "max_iter": 300,
+        "class_weight": null,
+        "random_state": 42
+    },
+    "sampling": {
+        "method": "chronological_prefix",
+        "training_rows": 100000,
+        "validation_rows": 88581,
+        "training_fraud_rate": 0.02561,
+        "validation_fraud_rate": 0.03434145019812375
+    },
+    "metrics": {
+        "average_precision": 0.3297902745677383,
+        "roc_auc": 0.7871899464384944,
+        "brier_score": 0.027571228748417654,
+        "log_loss": 0.1338576645402604
+    },
+    "resources": {
+        "training_seconds": 113.03359060000003,
+        "inference_seconds": 2.8984098000000813,
+        "process_memory_gb": 1.1378021240234375,
+        "iterations": [
+            83
+        ],
+        "convergence_warnings": 0
+    }
+}

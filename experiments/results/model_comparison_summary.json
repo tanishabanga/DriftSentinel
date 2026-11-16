@@ -1,0 +1,86 @@
+{
+    "purpose": "Validation performance comparison",
+    "validation_rows": 88581,
+    "test_set_used": false,
+    "important_limitation": "Logistic Regression experiments use chronological training prefixes of different sizes. XGBoost uses the full training partition. Differences in performance cannot be attributed solely to model choice.",
+    "experiments": [
+        {
+            "experiment": "logistic_regression_50k_benchmark",
+            "model": "LogisticRegression",
+            "training_rows": 50000,
+            "validation_rows": 88581,
+            "training_fraud_rate": 0.02714,
+            "validation_fraud_rate": 0.03434145019812375,
+            "average_precision": 0.29545144215938995,
+            "roc_auc": 0.7669080362811157,
+            "brier_score": 0.028853585160293033,
+            "log_loss": 0.15435440959391297,
+            "training_seconds": 53.54944670000077,
+            "inference_seconds": 2.902956099998846,
+            "convergence_warnings": 0,
+            "iterations": [
+                74
+            ],
+            "threshold": 0.5,
+            "sampling_method": "chronological_prefix"
+        },
+        {
+            "experiment": "logistic_regression_100000_benchmark",
+            "model": "LogisticRegression",
+            "training_rows": 100000,
+            "validation_rows": 88581,
+            "training_fraud_rate": 0.02561,
+            "validation_fraud_rate": 0.03434145019812375,
+            "average_precision": 0.3297902745677383,
+            "roc_auc": 0.7871899464384944,
+            "brier_score": 0.027571228748417654,
+            "log_loss": 0.1338576645402604,
+            "training_seconds": 113.03359060000003,
+            "inference_seconds": 2.8984098000000813,
+            "convergence_warnings": 0,
+            "iterations": [
+                83
+            ],
+            "threshold": 0.5,
+            "sampling_method": "chronological_prefix"
+        },
+        {
+            "experiment": "logistic_regression_200000_benchmark",
+            "model": "LogisticRegression",
+            "training_rows": 200000,
+            "validation_rows": 88581,
+            "training_fraud_rate": 0.03012,
+            "validation_fraud_rate": 0.03434145019812375,
+            "average_precision": 0.36680498491390434,
+            "roc_auc": 0.8188595189544823,
+            "brier_score": 0.026427011280966188,
+            "log_loss": 0.12376052834386686,
+            "training_seconds": 462.89472600000045,
+            "inference_seconds": 2.887522600000011,
+            "convergence_warnings": 0,
+            "iterations": [
+                141
+            ],
+            "threshold": 0.5,
+            "sampling_method": "chronological_prefix"
+        },
+        {
+            "experiment": "xgboost_full_data",
+            "model": "XGBClassifier",
+            "training_rows": 413379,
+            "validation_rows": 88581,
+            "training_fraud_rate": 0.0351686950715929,
+            "validation_fraud_rate": 0.03434145019812375,
+            "average_precision": 0.5854029644345556,
+            "roc_auc": 0.9171532089829817,
+            "brier_score": 0.020296070724725723,
+            "log_loss": 0.08404523879289627,
+            "training_seconds": 478.16010700000015,
+            "inference_seconds": 1.6003261000000748,
+            "convergence_warnings": null,
+            "iterations": null,
+            "threshold": 0.5,
+            "sampling_method": "full_chronological_partitions"
+        }
+    ]
+}

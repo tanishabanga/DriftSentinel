@@ -1,0 +1,17 @@
+{
+    "experiment": "logistic_regression_full_data",
+    "status": "interrupted",
+    "model": "LogisticRegression",
+    "configuration": {
+        "solver": "liblinear",
+        "max_iter": 1000,
+        "class_weight": null,
+        "random_state": 42,
+        "threshold": 0.5
+    },
+    "resources": {
+        "initial_memory_gb": 0.15177154541015625,
+        "available_system_memory_gb": 6.377124786376953
+    },
+    "interruption_reason": "Classifier fitting was manually stopped because full-data training was computationally impractical."
+}
