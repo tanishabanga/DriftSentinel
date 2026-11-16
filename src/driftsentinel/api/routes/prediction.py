@@ -1,6 +1,4 @@
-
-import pandas as pd
-
+﻿import pandas as pd
 from fastapi import APIRouter, HTTPException, Request
 
 from driftsentinel.api.schemas.prediction import (
@@ -8,7 +6,7 @@ from driftsentinel.api.schemas.prediction import (
     PredictionResponse,
     TransactionPrediction,
 )
-
+from driftsentinel.models.exceptions import InferenceInputError
 
 router = APIRouter()
 
@@ -30,16 +28,14 @@ def predict_transactions(
 
         predictions = inference_service.predict(transactions)
 
-        results = []
-
-        for record in predictions.to_dict(orient="records"):
-            results.append(
-                TransactionPrediction(**record)
-            )
+        results = [
+            TransactionPrediction(**record)
+            for record in predictions.to_dict(orient="records")
+        ]
 
         return PredictionResponse(predictions=results)
 
-    except (ValueError, TypeError) as exc:
+    except InferenceInputError as exc:
         raise HTTPException(
             status_code=422,
             detail=str(exc),

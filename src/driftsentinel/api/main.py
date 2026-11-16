@@ -6,6 +6,7 @@ from driftsentinel.api.routes.health import router as health_router
 from driftsentinel.api.routes.prediction import router as prediction_router
 from driftsentinel.models.inference import FraudInferenceService
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Load the inference service once during application startup."""

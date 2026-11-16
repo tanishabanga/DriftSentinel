@@ -1,12 +1,12 @@
 
+import copy
 import json
 
 import numpy as np
 import pandas as pd
 import pytest
-import copy
 
-import driftsentinel.models.inference as inference
+from driftsentinel.models import inference
 
 
 class FakeModel:

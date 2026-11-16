@@ -1,13 +1,17 @@
-
-from typing import Any
+﻿from typing import Any
 
 from pydantic import BaseModel, Field
 
+MAX_BATCH_SIZE = 1000
+
 
 class PredictionRequest(BaseModel):
-    """Request containing one or more transactions."""
+    """Request containing a bounded batch of transactions."""
 
-    transactions: list[dict[str, Any]] = Field(min_length=1)
+    transactions: list[dict[str, Any]] = Field(
+        min_length=1,
+        max_length=MAX_BATCH_SIZE,
+    )
 
 
 class TransactionPrediction(BaseModel):

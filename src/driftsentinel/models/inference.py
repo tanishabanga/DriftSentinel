@@ -1,4 +1,4 @@
-﻿
+
 """Production inference service for DriftSentinel.
 
 Loads the trained XGBoost model, validates the feature schema,
@@ -14,9 +14,9 @@ import numpy as np
 import pandas as pd
 from xgboost import XGBClassifier
 
+from driftsentinel.models.exceptions import InferenceInputError
 from driftsentinel.policies.costs import DecisionCosts
 from driftsentinel.policies.decision import make_decisions
-
 
 # ---------------------------------------------------------
 # PROJECT PATHS
@@ -207,17 +207,17 @@ class FraudInferenceService:
             )
 
         if data.empty:
-            raise ValueError("Input transaction data cannot be empty.")
+            raise InferenceInputError("Input transaction data cannot be empty.")
 
         if data.columns.duplicated().any():
-            raise ValueError("Duplicate input columns detected.")
+            raise InferenceInputError("Duplicate input columns detected.")
 
         missing_columns = (
             set(self.feature_names) - set(data.columns)
         )
 
         if missing_columns:
-            raise ValueError(
+            raise InferenceInputError(
                 "Input is missing required features: "
                 f"{sorted(missing_columns)}"
             )
@@ -449,4 +449,3 @@ class FraudInferenceService:
             results.insert(0, "TransactionID", transaction_ids)
 
         return results
-

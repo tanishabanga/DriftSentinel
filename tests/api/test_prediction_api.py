@@ -36,7 +36,7 @@ def client(monkeypatch):
         lambda: fake_service,
     )
 
-    with TestClient(app) as test_client:
+    with TestClient(app, raise_server_exceptions=False) as test_client:
         yield test_client, fake_service
 
 
@@ -210,3 +210,85 @@ def test_health_returns_503_when_component_is_missing(client, component):
     assert detail["status"] == "unavailable"
     assert detail["model_loaded"] is (component != "model")
     assert detail["calibrator_loaded"] is (component != "calibrator")
+
+
+def test_oversized_transaction_batch_rejected(client):
+    test_client, fake_service = client
+
+    transactions = [
+        {"TransactionID": i, "feature": 1.0}
+        for i in range(1001)
+    ]
+
+    response = test_client.post(
+        "/predict",
+        json={"transactions": transactions},
+    )
+
+    assert response.status_code == 422
+    assert len(fake_service.calls) == 0
+
+
+
+def test_invalid_inference_input_returns_422(client):
+    from driftsentinel.models.exceptions import InferenceInputError
+
+    test_client, fake_service = client
+
+    def reject_input(transactions):
+        raise InferenceInputError(
+            "Input is missing required features: ['amount']"
+        )
+
+    fake_service.predict = reject_input
+
+    response = test_client.post(
+        "/predict",
+        json={
+            "transactions": [
+                {"TransactionID": 1001, "feature": 12.5}
+            ]
+        },
+    )
+
+    assert response.status_code == 422
+    assert "missing required features" in response.json()["detail"]
+
+
+def test_unexpected_value_error_returns_500(client):
+    test_client, fake_service = client
+
+    def fail_internally(transactions):
+        raise ValueError("Internal model failure")
+
+    fake_service.predict = fail_internally
+
+    response = test_client.post(
+        "/predict",
+        json={
+            "transactions": [
+                {"TransactionID": 1001, "feature": 12.5}
+            ]
+        },
+    )
+
+    assert response.status_code == 500
+    assert response.text == "Internal Server Error"
+
+
+def test_maximum_transaction_batch_accepted(client):
+    test_client, fake_service = client
+
+    transactions = [
+        {"TransactionID": i, "feature": 1.0}
+        for i in range(1000)
+    ]
+
+    response = test_client.post(
+        "/predict",
+        json={"transactions": transactions},
+    )
+
+    assert response.status_code == 200
+    assert len(response.json()["predictions"]) == 1000
+    assert len(fake_service.calls) == 1
