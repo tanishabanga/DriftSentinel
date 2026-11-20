@@ -391,9 +391,9 @@ After the experimental design, adaptation strategy, and policy choices are froze
 | Transaction-level paired bootstrap | Completed |
 | Temporal block bootstrap | Completed |
 | Block-length sensitivity analysis | Completed |
-| Cost sensitivity analysis | Pending |
-| Repeated temporal evaluation | Pending |
-| Final untouched test evaluation | Pending |
+| Cost sensitivity analysis | Completed |
+| Five-fold rolling-origin calibration evaluation | Completed |
+| Final test performance evaluation | Pending |
 
 **Current conclusion:**
 
@@ -557,7 +557,7 @@ The results also indicate that updating calibration alone does not necessarily r
 
 However, these findings do not establish that retraining is always preferable. The models were trained on different sample sizes and temporal compositions, and the experiment evaluates only one future evaluation window.
 
-Further rolling-origin experiments are required to determine whether the observed improvements persist across different periods.
+A separate five-fold rolling-origin experiment has since evaluated static and adaptive calibration strategies across successive chronological evaluation windows. It provides evidence about calibration behaviour across multiple periods, but it does not independently validate the retraining comparison above. The retraining comparison still uses one future evaluation window, so additional rolling-origin evaluation of retraining strategies is needed before claiming that their relative improvements persist across different periods.
 
 ### 13.7 Reproducibility artifacts
 
@@ -655,7 +655,15 @@ Three block lengths were evaluated:
 | 500 observations | 1,000 | 1,000 |
 | 1,000 observations | 1,000 | 1,000 |
 
-Random seed: 42.
+The random generator seed is derived from the base seed of 42 plus the block length:
+
+| Block length | Random seed |
+|---|---:|
+| 250 observations | 292 |
+| 500 observations | 542 |
+| 1,000 observations | 1,042 |
+
+Each block-length experiment therefore uses a deterministic but distinct random seed.
 
 The block-length sensitivity analysis investigates whether conclusions are sensitive to the selected local dependence scale.
 
@@ -753,7 +761,9 @@ The temporal block bootstrap provides a more dependence-aware uncertainty analys
 
 However, it does not eliminate all statistical limitations.
 
-The procedure preserves local order within sampled blocks, but blocks are sampled independently with replacement. Dependence across block boundaries is not fully preserved.
+The procedure preserves local row order within sampled blocks, but blocks are sampled independently with replacement. Dependence across block boundaries is not fully preserved.
+
+Blocks are defined over chronologically ordered rows rather than unique timestamp groups. Transactions sharing an identical TransactionDT value can therefore fall on opposite sides of a sampled block boundary. The method preserves row-level chronological neighborhoods, but does not guarantee that all transactions with the same timestamp remain together in every bootstrap sample.
 
 The analysis also relies on the assumption that the observed chronological sequence provides a useful basis for approximating local temporal behaviour.
 
@@ -763,7 +773,7 @@ No multiplicity correction was applied across the collection of model and metric
 
 Accordingly, confidence intervals excluding zero should be interpreted as evidence of a difference under the specified evaluation and resampling design, not as proof of universal superiority.
 
-Repeated rolling-origin temporal evaluation remains necessary.
+The five-fold rolling-origin calibration experiment provides repeated temporal evaluation for calibration strategies. However, repeated rolling-origin evaluation of the retraining comparison remains necessary because the retraining pilot evaluates a single future evaluation window.
 
 ### 14.10 Reproducibility Artifacts
 
@@ -784,3 +794,307 @@ Relevant experiment scripts:
 - `scripts/run_temporal_block_bootstrap.py`
 - `scripts/profile_evaluation_time_blocks.py`
 - `scripts/profile_six_hour_blocks.py`
+## 15. Final Untouched Holdout Evaluation
+
+### 15.1 Evaluation protocol
+
+The final chronological holdout contains 88,580 transactions, including 3,083 fraud cases and 85,497 legitimate transactions. Fraud prevalence is approximately 3.4805%.
+
+Four model variants were evaluated under uncalibrated, sigmoid-calibrated, and isotonic-calibrated conditions, producing 14 strategies.
+
+The prediction stage was label-blind: the final holdout target was not loaded or used for prediction. The evaluator subsequently loaded the target exclusively to calculate evaluation metrics. No model retraining or calibrator refitting occurred during final evaluation.
+
+### 15.2 Final holdout results
+
+| Strategy | Brier | Log loss | ECE | Average Precision | ROC-AUC |
+|---|---:|---:|---:|---:|---:|
+| Frozen uncalibrated | 0.053510 | 0.768583 | 0.046090 | 0.100247 | 0.667472 |
+| Frozen static sigmoid | 0.043639 | 0.178861 | 0.019195 | 0.102224 | 0.667712 |
+| Frozen static isotonic | 0.044866 | 0.190202 | 0.020289 | 0.099029 | 0.678723 |
+| Frozen adaptive sigmoid | 0.040822 | 0.163764 | 0.014819 | 0.102224 | 0.667712 |
+| Frozen adaptive isotonic | 0.045417 | 0.663397 | 0.018591 | 0.098148 | 0.674741 |
+| Retrained uncalibrated | 0.047618 | 0.705313 | 0.036261 | 0.118674 | 0.719918 |
+| Retrained sigmoid | 0.044305 | 0.265632 | 0.020325 | 0.120450 | 0.720164 |
+| Retrained isotonic | 0.045145 | 0.693384 | 0.025892 | 0.119725 | 0.719546 |
+| Recent-only uncalibrated | 0.046723 | 0.651647 | 0.037947 | 0.128254 | 0.724501 |
+| Recent-only sigmoid | 0.041929 | 0.191764 | 0.015895 | 0.129318 | 0.724649 |
+| Recent-only isotonic | 0.043219 | 0.614830 | 0.021969 | 0.134858 | 0.729095 |
+| Matched-size uncalibrated | 0.049535 | 0.726613 | 0.040508 | 0.113469 | 0.700334 |
+| Matched-size sigmoid | 0.044352 | 0.224308 | 0.016819 | 0.115554 | 0.700568 |
+| Matched-size isotonic | 0.044810 | 0.716083 | 0.022979 | 0.115271 | 0.706063 |
+
+### 15.3 Interpretation
+
+Recent-only isotonic achieved the highest Average Precision (0.134858) and ROC-AUC (0.729095), indicating the strongest ranking performance among the evaluated strategies.
+
+Frozen adaptive sigmoid achieved the lowest Brier score (0.040822), log loss (0.163764), and ECE (0.014819), indicating the strongest probability-quality results under these metrics.
+
+These results demonstrate that ranking performance and probability calibration are distinct objectives. The strategy with the strongest ranking performance is not necessarily the strategy with the strongest probability quality.
+
+No single strategy dominates every metric. The results should therefore be interpreted in terms of the operational objective rather than a universal ranking of models.
+
+These are point estimates on one final chronological holdout. No final-holdout bootstrap confidence intervals or statistical significance tests were calculated.
+
+### 15.4 Validation-to-holdout performance change
+
+The final holdout results are lower than the earlier validation evaluation for several representative strategies.
+
+| Strategy | Validation AP | Holdout AP |
+|---|---:|---:|
+| Frozen uncalibrated | 0.226144 | 0.100247 |
+| Retrained sigmoid | 0.322870 | 0.120450 |
+| Recent-only isotonic | 0.253512 | 0.134858 |
+| Matched-size sigmoid | 0.301616 | 0.115554 |
+
+This change indicates that the final holdout presents a more difficult evaluation period for these strategies. It does not, by itself, establish that distribution drift caused the performance reduction.
+
+### 15.5 Reproducibility artifacts
+
+- `experiments/results/final_holdout_evaluation/final_holdout_metrics.csv`
+- `experiments/results/final_holdout_evaluation/final_holdout_evaluation_metadata.json`
+- `experiments/results/final_holdout_predictions/final_holdout_metadata.json`
+
+The prediction and metadata hashes were recorded in the experiment audit.
+
+---
+
+## 16. Enhanced Temporal Feature Distribution Drift
+
+### 16.1 Objective and methodology
+
+The enhanced feature drift experiment measures changes in marginal feature distributions across chronological periods without loading the fraud target.
+
+It covers 431 model features: 400 numerical and 31 categorical features. A total of 1,293 feature-comparison records were produced across three temporal comparisons.
+
+The partitions contain:
+
+- Training: 413,379 rows.
+- Temporal validation evaluation: 29,527 rows.
+- Final holdout: 88,580 rows.
+
+The analysis uses:
+
+- Numerical Kolmogorov-Smirnov statistics.
+- Numerical Population Stability Index (PSI), using ten reference-period quantile bins.
+- Categorical Jensen-Shannon divergence.
+- Separate observed-only and missingness-inclusive distribution comparisons.
+- Missingness changes measured in percentage points.
+- Benjamini-Hochberg correction applied separately to the 400 numerical KS tests within each comparison.
+
+### 16.2 Aggregate results
+
+| Metric | Train to validation | Train to holdout | Validation to holdout |
+|---|---:|---:|---:|
+| Mean numerical KS | 0.032664 | 0.046148 | 0.036933 |
+| Median numerical KS | 0.023625 | 0.024383 | 0.021021 |
+| KS tests with BH q < 0.05 | 223/400 | 301/400 | 260/400 |
+| Mean observed-only numerical PSI | 0.046331 | 0.046852 | 0.017802 |
+| Median observed-only numerical PSI | 0.003550 | 0.002301 | 0.002897 |
+| Mean combined numerical PSI | 0.054726 | 0.035501 | 0.008146 |
+| Mean observed-only categorical JS | 0.028228 | 0.031536 | 0.022748 |
+| Mean combined categorical JS | 0.020425 | 0.018799 | 0.004938 |
+| Mean absolute missingness change (pp) | 6.361974 | 4.856785 | 1.591874 |
+
+### 16.3 Features with the largest observed distribution differences
+
+For the training-to-final-holdout comparison, the largest numerical observed-only PSI values were:
+
+| Feature | Observed-only PSI |
+|---|---:|
+| id_13 | 3.038759 |
+| V152 | 1.375785 |
+| V160 | 1.328055 |
+| V145 | 1.320413 |
+| V151 | 1.246460 |
+
+The largest categorical observed-only Jensen-Shannon divergence values were:
+
+| Feature | Observed-only JS |
+|---|---:|
+| id_31 | 0.498503 |
+| id_30 | 0.206442 |
+| DeviceInfo | 0.090603 |
+| id_33 | 0.053981 |
+| id_38 | 0.046866 |
+
+### 16.4 Interpretation and limitations
+
+The results show measurable changes in marginal feature distributions across chronological partitions.
+
+However, mean PSI values are influenced by a small number of features with large distribution differences. Median values are substantially smaller, indicating that the average does not describe a typical feature particularly well.
+
+The train-to-holdout observed-only PSI mean (0.046852) is similar to the train-to-validation mean (0.046331), while the corresponding median is lower for the holdout comparison. Therefore, the aggregate results do not support a simple claim that every feature experiences progressively stronger drift.
+
+The analysis measures changes in P(X). It does not establish concept drift in P(Y|X), nor does it prove that feature-distribution changes caused predictive performance differences.
+
+Additional limitations include sensitivity of PSI to binning choices, sample-size sensitivity of KS significance, and the need to interpret observed-only distribution metrics separately from missingness changes.
+
+### 16.5 Reproducibility artifacts
+
+- `scripts/analyze_temporal_feature_drift.py`
+- `scripts/finalize_temporal_feature_drift.py`
+- `experiments/results/temporal_feature_drift/temporal_feature_drift_enhanced.csv`
+- `experiments/results/temporal_feature_drift/temporal_feature_drift_enhanced_summary.json`
+
+---
+
+## 17. Cost Sensitivity and Review-Capacity Analysis
+
+### 17.1 Experiment design
+
+The cost sensitivity experiment evaluates 14 predictive strategies under seven illustrative cost scenarios and seven decision policies.
+
+The policies include review capacities of 0%, 0.25%, 0.5%, 1%, 2%, and 3%, as well as an unconstrained policy.
+
+The resulting experiment contains:
+
+14 strategies × 7 cost scenarios × 7 policies = 686 result rows.
+
+The cost assumptions represent illustrative operational scenarios, not measured costs from a real financial institution.
+
+### 17.2 Expected versus realized cost
+
+Expected cost is calculated from model probabilities and the specified cost assumptions. Realized cost is calculated retrospectively using the observed labels and the same cost assumptions.
+
+Across the 49 cost-scenario and policy combinations, the expected-cost winner and realized-cost winner differ in all 49 combinations.
+
+The expected-cost winner is `frozen_uncalibrated` in 48 of 49 combinations and `recent_only_uncalibrated` in one combination.
+
+The retrospective realized-cost winner varies across the scenarios and policies:
+
+- `recent_only_isotonic`: 26 combinations.
+- `retrained_isotonic`: 10 combinations.
+- `retrained_sigmoid`: 6 combinations.
+- `recent_only_uncalibrated`: 6 combinations.
+- `recent_only_sigmoid`: 1 combination.
+
+### 17.3 Interpretation
+
+The difference between expected-cost and realized-cost winners is an important result.
+
+It demonstrates that selecting a strategy using probability-based expected costs does not necessarily select the strategy with the lowest retrospective realized cost on a particular evaluation set.
+
+The realized-cost winner is a hindsight comparison. It must not be presented as a prospective decision rule or as evidence that the strategy could have been selected before observing outcomes.
+
+The results also depend on the illustrative cost assumptions and review-capacity constraints. They should not be interpreted as estimates of actual bank operating costs or as evidence of production readiness.
+
+### 17.4 Reproducibility artifacts
+
+- `experiments/results/cost_sensitivity_capacity_impact.csv`
+- `experiments/results/cost_sensitivity_results.csv`
+- `experiments/results/cost_sensitivity_strategy_summary.csv`
+- `experiments/results/cost_sensitivity_winners.csv`
+- `experiments/results/action_cost_gap_diagnostics.csv`
+
+---
+
+## 18. Five-Fold Rolling-Origin Evaluation
+
+### 18.1 Objective and protocol
+
+A five-fold rolling-origin experiment evaluates calibration strategies over successive chronological evaluation periods.
+
+Each fold trains a fresh Logistic Regression model using the expanding training history. Static calibration uses the designated initial calibration data, while adaptive calibration uses the preceding completed validation segment. In the first fold, adaptive and static calibration use the same initial calibration data.
+
+The experiment evaluates five strategies:
+
+- Uncalibrated.
+- Static sigmoid.
+- Adaptive sigmoid.
+- Static isotonic.
+- Adaptive isotonic.
+
+This is a rolling-origin model-retraining and calibration experiment, rather than a calibration-only experiment with one frozen model.
+
+### 18.2 Mean and standard deviation across folds
+
+| Strategy | Brier mean ± std | Log loss mean ± std | ECE mean ± std | AP mean ± std |
+|---|---:|---:|---:|---:|
+| Adaptive isotonic | 0.025242 ± 0.002554 | 0.113422 ± 0.013316 | 0.005522 ± 0.000815 | 0.388936 ± 0.091476 |
+| Adaptive sigmoid | 0.025214 ± 0.002648 | 0.108116 ± 0.008864 | 0.004900 ± 0.001496 | 0.411162 ± 0.087717 |
+| Static isotonic | 0.025189 ± 0.002516 | 0.109687 ± 0.011516 | 0.004681 ± 0.001694 | 0.398765 ± 0.086424 |
+| Static sigmoid | 0.025158 ± 0.002523 | 0.107980 ± 0.008458 | 0.005151 ± 0.001653 | 0.411162 ± 0.087717 |
+| Uncalibrated | 0.025273 ± 0.002512 | 0.110254 ± 0.009103 | 0.006126 ± 0.001891 | 0.411162 ± 0.087717 |
+
+### 18.3 Interpretation
+
+The five-fold results show relatively close average probability-quality metrics across the evaluated calibration strategies.
+
+Static sigmoid has the lowest mean Brier score and log loss, while static isotonic has the lowest mean ECE. Adaptive sigmoid has the same mean Average Precision as the static sigmoid and uncalibrated strategies.
+
+The fold-level results vary over time. Average Precision decreases from approximately 0.544 in the first fold to approximately 0.32–0.34 in later folds, depending on the strategy.
+
+This temporal pattern should not be attributed to calibration alone because a fresh model is trained in each fold and the evaluation periods differ.
+
+The experiment provides repeated chronological evidence for calibration strategies, but does not replace repeated rolling-origin evaluation of the retraining-versus-recalibration comparison.
+
+### 18.4 Reproducibility artifacts
+
+- `experiments/results/rolling_experiment_summary.csv`
+- `experiments/results/rolling_fold_metrics.csv`
+- `experiments/results/rolling_predictions/fold_1_predictions.parquet`
+- `experiments/results/rolling_predictions/fold_2_predictions.parquet`
+- `experiments/results/rolling_predictions/fold_3_predictions.parquet`
+- `experiments/results/rolling_predictions/fold_4_predictions.parquet`
+- `experiments/results/rolling_predictions/fold_5_predictions.parquet`
+
+Relevant visualization:
+
+- `artifacts/research_figures/figure_5_rolling_temporal_performance.pdf`
+- `artifacts/research_figures/figure_5_rolling_temporal_performance.png`
+
+---
+
+## 19. Final Methodology Audit and Research Boundaries
+
+### 19.1 Chronological training sample
+
+The primary temporal Logistic Regression experiment uses an initial 20,000-row training subset read from the first Parquet batch.
+
+The sampling utility reads the first available batch and does not perform random sampling. The resulting training subset spans TransactionDT values 86,400 to 517,208.
+
+Accordingly, this subset is described as an initial chronological training subset, not as a random sample. The recorded random-state value does not make the batch read random.
+
+### 19.2 Temporal calibration and evaluation separation
+
+The primary temporal experiment divides the chronological validation data into initial calibration, adaptation, and evaluation windows using timestamp quantiles.
+
+The adaptation window is subsequently sorted chronologically and split at its median timestamp into adaptation training and adaptation calibration partitions.
+
+The saved metadata records:
+
+| Partition | Rows |
+|---|---:|
+| Initial training sample | 20,000 |
+| Initial calibration | 29,527 |
+| Adaptation training | 14,764 |
+| Adaptation calibration | 14,763 |
+| Temporal evaluation | 29,527 |
+
+The primary preparation metadata records that the final test partition was not used in preparing this experiment.
+
+The final holdout prediction stage was also label-blind, with target labels accessed later by the evaluator for metrics only.
+
+### 19.3 XGBoost exploratory experiment limitation
+
+The XGBoost experiment uses the full validation labels for early stopping and subsequently evaluates predictions on that same validation partition.
+
+As a result, the validation evaluation is not independent of model selection. Splitting predictions into later calibration and evaluation subsets does not remove this dependency because the base model's early stopping already used labels from the full validation period.
+
+Therefore, XGBoost results are treated as exploratory and are excluded from the primary independent quantitative comparison in this research.
+
+A valid future XGBoost comparison would require model selection on an earlier chronological period, calibration on a later period, and evaluation on a still later untouched period.
+
+### 19.4 Overall research limitations
+
+The research uses the IEEE-CIS Fraud Detection dataset and illustrative cost assumptions. The experiments do not establish production performance in a live financial institution.
+
+Feature-distribution drift is not equivalent to concept drift, and no causal relationship between measured feature drift and predictive degradation is established.
+
+Final holdout metrics are point estimates without holdout-level confidence intervals. Bootstrap intervals reported earlier apply to the validation evaluation window and should not be presented as final holdout uncertainty estimates.
+
+The rolling-origin experiment evaluates repeated temporal calibration behaviour with fresh models, but repeated rolling-origin comparisons of the retraining strategies remain future work.
+
+The cost analysis is retrospective and assumption-dependent. Real operational deployment would require institution-specific cost estimates, review-capacity measurements, latency requirements, monitoring, governance, and human-review procedures.
+
+The results therefore support a controlled experimental study of temporal adaptation and cost-sensitive fraud detection, rather than a claim of a production-ready fraud prevention system.

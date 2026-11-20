@@ -1,49 +1,41 @@
-
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Bell, Search, X, CheckCheck, ShieldAlert } from "lucide-react";
+import { Bell, Search, X } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { transactions } from "../data/mockData";
+import { getPredictionHistory } from "../lib/api";
 
 const pageNames = {
   "/": "Overview",
   "/transactions": "Transactions",
   "/prediction": "Run Prediction",
+  "/monitoring-history": "Monitoring History",
   "/risk-analysis": "Risk Analysis",
   "/model-analytics": "Model Analytics",
   "/settings": "Settings",
   "/documentation": "Documentation",
 };
 
+function formatProbability(value) {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    return "Unavailable";
+  }
 
-const initialNotifications = [
-  {
-    id: 1,
-    title: "High-risk transaction detected",
-    message: "A transaction has a high predicted fraud probability.",
-    time: "2 min ago",
-    read: false,
-    type: "fraud",
-  },
-  {
-    id: 2,
-    title: "Manual review required",
-    message: "A transaction is awaiting review.",
-    time: "8 min ago",
-    read: false,
-    type: "review",
-  },
-  {
-    id: 3,
-    title: "Model status",
-    message: "XGBoost validation model is available.",
-    time: "Today",
-    read: true,
-    type: "system",
-  },
-];
+  return `${(value * 100).toFixed(2)}%`;
+}
 
+function normalizeAction(action) {
+  return typeof action === "string" ? action.toLowerCase() : "unknown";
+}
 
+function getTransactionLabel(prediction) {
+  const transactionId = prediction.TransactionID;
+
+  if (transactionId === null || transactionId === undefined) {
+    return prediction.prediction_id || "Prediction";
+  }
+
+  return String(transactionId);
+}
 
 function Topbar() {
   const location = useLocation();
@@ -52,7 +44,10 @@ function Topbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [notifications, setNotifications] = useState(initialNotifications);
+
+  const [predictions, setPredictions] = useState([]);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [searchError, setSearchError] = useState("");
 
   const searchRef = useRef(null);
   const notificationRef = useRef(null);
@@ -60,35 +55,65 @@ function Topbar() {
 
   const currentPage = pageNames[location.pathname] || "Overview";
 
-  const unreadCount = notifications.filter(
-    (notification) => !notification.read
-  ).length;
-
   const searchResults = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
 
     if (!query) return [];
 
-    return transactions
-      .filter((transaction) => {
+    return predictions
+      .filter((prediction) => {
         const searchableText = [
-          transaction.id,
-          transaction.amount,
-          transaction.probability,
-          transaction.risk,
-          transaction.action,
-          transaction.time,
-          transaction.type,
-          transaction.location,
+          prediction.TransactionID,
+          prediction.prediction_id,
+          prediction.batch_id,
+          prediction.action,
+          prediction.raw_probability,
+          prediction.calibrated_probability,
+          prediction.expected_cost,
+          prediction.predicted_at_utc,
         ]
-          .filter(Boolean)
+          .filter((value) => value !== null && value !== undefined)
           .join(" ")
           .toLowerCase();
 
         return searchableText.includes(query);
       })
       .slice(0, 6);
-  }, [searchQuery]);
+  }, [predictions, searchQuery]);
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadPredictions() {
+      setSearchLoading(true);
+      setSearchError("");
+
+      try {
+        const response = await getPredictionHistory(100);
+
+        if (!active) return;
+
+        setPredictions(
+          Array.isArray(response.predictions) ? response.predictions : [],
+        );
+      } catch (error) {
+        if (!active) return;
+
+        setSearchError(
+          error.message || "Unable to load prediction history.",
+        );
+        setPredictions([]);
+      } finally {
+        if (active) setSearchLoading(false);
+      }
+    }
+
+    loadPredictions();
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   useEffect(() => {
     function handleOutsideClick(event) {
@@ -142,32 +167,19 @@ function Topbar() {
     setSearchQuery("");
   }
 
-  function openTransactionSearch(transaction) {
+  function openTransactionSearch(prediction) {
+    const transactionId = prediction.TransactionID;
+
+    if (transactionId === null || transactionId === undefined) {
+      return;
+    }
+
     navigate(
-      `/transactions?search=${encodeURIComponent(transaction.id)}`
+      `/transactions?search=${encodeURIComponent(String(transactionId))}`,
     );
 
     setSearchOpen(false);
     setSearchQuery("");
-  }
-
-  function markAllAsRead() {
-    setNotifications((current) =>
-      current.map((notification) => ({
-        ...notification,
-        read: true,
-      }))
-    );
-  }
-
-  function markAsRead(id) {
-    setNotifications((current) =>
-      current.map((notification) =>
-        notification.id === id
-          ? { ...notification, read: true }
-          : notification
-      )
-    );
   }
 
   return (
@@ -184,11 +196,10 @@ function Topbar() {
           Development
         </div>
 
-        {/* Global search */}
         <div className="topbar-popover-wrapper" ref={searchRef}>
           <button
             className={`icon-button ${searchOpen ? "active" : ""}`}
-            aria-label="Search transactions"
+            aria-label="Search predictions"
             aria-expanded={searchOpen}
             onClick={toggleSearch}
             type="button"
@@ -200,8 +211,8 @@ function Topbar() {
             <div className="topbar-popover search-popover">
               <div className="popover-heading">
                 <div>
-                  <strong>Search transactions</strong>
-                  <span>Find records in the demo dataset</span>
+                  <strong>Search predictions</strong>
+                  <span>Search persisted prediction records</span>
                 </div>
               </div>
 
@@ -210,7 +221,7 @@ function Topbar() {
                 <input
                   ref={searchInputRef}
                   type="text"
-                  placeholder="Search ID, amount, risk or action..."
+                  placeholder="Search transaction ID, batch ID or action..."
                   value={searchQuery}
                   onChange={(event) => setSearchQuery(event.target.value)}
                 />
@@ -227,49 +238,67 @@ function Topbar() {
               </div>
 
               <div className="global-search-results">
-                {!searchQuery.trim() ? (
+                {searchLoading ? (
                   <p className="popover-empty">
-                    Try a transaction ID, amount, or risk level.
+                    Loading persisted predictions...
+                  </p>
+                ) : searchError ? (
+                  <p className="popover-empty" role="alert">
+                    {searchError}
+                  </p>
+                ) : !searchQuery.trim() ? (
+                  <p className="popover-empty">
+                    Try a transaction ID, prediction ID, batch ID or action.
                   </p>
                 ) : searchResults.length === 0 ? (
                   <p className="popover-empty">
-                    No matching transactions found.
+                    No matching predictions in the latest 100 records.
                   </p>
                 ) : (
-                  searchResults.map((transaction) => (
-                    <button
-                      type="button"
-                      className="global-search-result"
-                      key={transaction.id}
-                      onClick={() => openTransactionSearch(transaction)}
-                    >
-                      <div className="search-result-icon">
-                        <Search size={15} />
-                      </div>
+                  searchResults.map((prediction) => {
+                    const action = normalizeAction(prediction.action);
 
-                      <div className="search-result-details">
-                        <strong>{transaction.id}</strong>
-                        <span>
-                          {transaction.amount} · {transaction.risk} risk
+                    return (
+                      <button
+                        type="button"
+                        className="global-search-result"
+                        key={prediction.prediction_id}
+                        onClick={() => openTransactionSearch(prediction)}
+                        disabled={
+                          prediction.TransactionID === null ||
+                          prediction.TransactionID === undefined
+                        }
+                      >
+                        <div className="search-result-icon">
+                          <Search size={15} />
+                        </div>
+
+                        <div className="search-result-details">
+                          <strong>{getTransactionLabel(prediction)}</strong>
+                          <span>
+                            {formatProbability(
+                              prediction.calibrated_probability,
+                            )}{" "}
+                            calibrated probability
+                          </span>
+                        </div>
+
+                        <span className={`action-text ${action}`}>
+                          {prediction.action || "Unknown"}
                         </span>
-                      </div>
-
-                      <span className={`action-text ${transaction.action?.toLowerCase()}`}>
-                        {transaction.action}
-                      </span>
-                    </button>
-                  ))
+                      </button>
+                    );
+                  })
                 )}
               </div>
 
               <div className="popover-footer">
-                Searching the currently loaded demo transactions
+                Searching the latest 100 persisted prediction records
               </div>
             </div>
           )}
         </div>
 
-        {/* Notifications */}
         <div className="topbar-popover-wrapper" ref={notificationRef}>
           <button
             className={`icon-button notification-button ${
@@ -281,9 +310,6 @@ function Topbar() {
             type="button"
           >
             <Bell size={18} />
-            {unreadCount > 0 && (
-              <span className="notification-indicator" />
-            )}
           </button>
 
           {notificationOpen && (
@@ -291,56 +317,29 @@ function Topbar() {
               <div className="notification-header">
                 <div>
                   <strong>Notifications</strong>
-                  <span>
-                    {unreadCount} unread notification
-                    {unreadCount === 1 ? "" : "s"}
-                  </span>
+                  <span>Alert integration status</span>
                 </div>
-
-                <button
-                  type="button"
-                  className="mark-read-button"
-                  onClick={markAllAsRead}
-                  disabled={unreadCount === 0}
-                >
-                  <CheckCheck size={14} />
-                  Mark all read
-                </button>
               </div>
 
               <div className="notification-list">
-                {notifications.map((notification) => (
-                  <div
-                    key={notification.id}
-                    className={`notification-item ${
-                      notification.read ? "read" : "unread"
-                    }`}
-                  >
-                    <div className={`notification-icon ${notification.type}`}>
-                      <ShieldAlert size={16} />
-                    </div>
-
-                    <div className="notification-content">
-                      <strong>{notification.title}</strong>
-                      <p>{notification.message}</p>
-                      <span>{notification.time}</span>
-                    </div>
-
-                    {!notification.read && (
-                      <button
-                        type="button"
-                        className="mark-one-read"
-                        aria-label={`Mark ${notification.title} as read`}
-                        title="Mark as read"
-                        onClick={() => markAsRead(notification.id)}
-                      />
-                    )}
+                <div className="notification-item read">
+                  <div className="notification-icon system">
+                    <Bell size={16} />
                   </div>
-                ))}
+
+                  <div className="notification-content">
+                    <strong>Live alerts are not configured</strong>
+                    <p>
+                      DriftSentinel currently persists predictions and
+                      monitoring snapshots. A live notification event system
+                      has not been implemented yet.
+                    </p>
+                  </div>
+                </div>
               </div>
 
               <div className="popover-footer">
-                Demo notifications · Not live alerts
+                No simulated alerts · No live alert feed
               </div>
             </div>
           )}

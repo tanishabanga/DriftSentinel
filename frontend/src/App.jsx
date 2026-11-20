@@ -10,6 +10,8 @@ const Transactions = lazy(() => import("./pages/Transactions"));
 const RiskAnalysis = lazy(() => import("./pages/RiskAnalysis"));
 const ModelAnalytics = lazy(() => import("./pages/ModelAnalytics"));
 const Prediction = lazy(() => import("./pages/Prediction"));
+const MonitoringHistory = lazy(() => import("./pages/MonitoringHistory"));
+const Documentation = lazy(() => import("./pages/Documentation"));
 
 function PageLoader() {
   return (
@@ -42,16 +44,14 @@ function App() {
           <Route path="/risk-analysis" element={<RiskAnalysis />} />
           <Route path="/model-analytics" element={<ModelAnalytics />} />
           <Route path="/prediction" element={<Prediction />} />
+          <Route path="/monitoring-history" element={<MonitoringHistory />} />
 
           <Route
             path="/settings"
             element={<PlaceholderPage title="Settings" />}
           />
 
-          <Route
-            path="/documentation"
-            element={<PlaceholderPage title="Documentation" />}
-          />
+          <Route path="/documentation" element={<Documentation />} />
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>

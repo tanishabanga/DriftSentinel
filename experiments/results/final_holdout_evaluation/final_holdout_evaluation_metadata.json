@@ -1,0 +1,41 @@
+{
+  "experiment": "final_chronological_holdout_evaluation",
+  "prediction_stage": "frozen_predictions_evaluated",
+  "test_target_loaded": true,
+  "test_target_used_for_metrics_only": true,
+  "models_retrained": false,
+  "calibrators_refitted": false,
+  "test_rows": 88580,
+  "fraud_transactions": 3083,
+  "legitimate_transactions": 85497,
+  "fraud_prevalence": 0.034804696319711,
+  "strategy_count": 14,
+  "strategies": [
+    "frozen_uncalibrated",
+    "frozen_static_sigmoid",
+    "frozen_static_isotonic",
+    "frozen_adaptive_sigmoid",
+    "frozen_adaptive_isotonic",
+    "retrained_uncalibrated",
+    "retrained_sigmoid",
+    "retrained_isotonic",
+    "recent_only_uncalibrated",
+    "recent_only_sigmoid",
+    "recent_only_isotonic",
+    "matched_size_uncalibrated",
+    "matched_size_sigmoid",
+    "matched_size_isotonic"
+  ],
+  "metrics": [
+    "average_precision",
+    "roc_auc",
+    "brier_score",
+    "log_loss",
+    "ece"
+  ],
+  "ece_definition": "Equal-width bins, 10 bins, weighted absolute calibration gap.",
+  "prediction_sha256": "C0ACF1289CCE7733BDFAF512C97FA3A280244D4B80667D6EED0B91C7CD585496",
+  "prediction_metadata_sha256": "1F4A4F97DC2729185C53B7E45BA090B31C963D596E6E185F7857FB04CC017040",
+  "prediction_file": "experiments\\results\\final_holdout_predictions\\final_holdout_probabilities.parquet",
+  "metrics_file": "experiments\\results\\final_holdout_evaluation\\final_holdout_metrics.csv"
+}

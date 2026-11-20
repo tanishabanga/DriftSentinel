@@ -11,21 +11,17 @@ import {
 } from "recharts";
 import DecisionPolicy from "../components/dashboard/DecisionPolicy";
 import PageHeader from "../components/common/PageHeader";
-import {
-  modelMetrics,
-  thresholdData,
-  calibrationData,
-} from "../data/mockData";
+import modelAnalyticsData from "../data/modelAnalyticsData.json";
 
 function ModelAnalytics() {
   const metrics = [
-    ["Average precision", modelMetrics.averagePrecision.toFixed(4)],
-    ["ROC-AUC", modelMetrics.rocAuc.toFixed(4)],
-    ["Precision", modelMetrics.precision.toFixed(4)],
-    ["Recall", modelMetrics.recall.toFixed(4)],
-    ["F1 score", modelMetrics.f1Score.toFixed(4)],
-    ["Brier score", modelMetrics.brierScore.toFixed(4)],
-    ["Log loss", modelMetrics.logLoss.toFixed(4)],
+    ["Average precision", modelAnalyticsData.metrics.averagePrecision.toFixed(4)],
+    ["ROC-AUC", modelAnalyticsData.metrics.rocAuc.toFixed(4)],
+    ["Precision", modelAnalyticsData.metrics.precision.toFixed(4)],
+    ["Recall", modelAnalyticsData.metrics.recall.toFixed(4)],
+    ["F1 score", modelAnalyticsData.metrics.f1Score.toFixed(4)],
+    ["Brier score", modelAnalyticsData.metrics.brierScore.toFixed(4)],
+    ["Log loss", modelAnalyticsData.metrics.logLoss.toFixed(4)],
   ];
 
   return (
@@ -63,12 +59,15 @@ function ModelAnalytics() {
 
           <div className="analytics-chart">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={thresholdData}>
+              <LineChart data={modelAnalyticsData.thresholdData}>
                 <CartesianGrid stroke="#252B38" strokeDasharray="3 5" />
                 <XAxis
+                  type="number"
                   dataKey="threshold"
                   stroke="#8992A5"
                   tickLine={false}
+                  domain={[0.05, 0.95]}
+                  tickFormatter={(value) => value.toFixed(2)}
                   label={{ value: "Threshold", position: "insideBottom", offset: -5 }}
                 />
                 <YAxis
@@ -109,19 +108,21 @@ function ModelAnalytics() {
           <div className="panel-heading">
             <div>
               <h3>Calibration curve</h3>
-              <p>Sigmoid calibration · chronological evaluation split</p>
+              <p>Sigmoid calibration | chronological evaluation split</p>
             </div>
           </div>
 
           <div className="analytics-chart">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={calibrationData}>
+              <LineChart data={modelAnalyticsData.calibrationData}>
                 <CartesianGrid stroke="#252B38" strokeDasharray="3 5" />
                 <XAxis
+                  type="number"
                   dataKey="predicted"
                   stroke="#8992A5"
                   tickLine={false}
                   domain={[0, 1]}
+                  tickFormatter={(value) => value.toFixed(2)}
                 />
                 <YAxis
                   stroke="#8992A5"
@@ -170,8 +171,7 @@ function ModelAnalytics() {
         </p>
         <p className="muted-note">
   Threshold analysis uses all 88,581 validation transactions.
-  Calibration analysis uses a separate chronological evaluation
-  split of 44,291 transactions. Calibration bins have unequal
+  Calibration was fitted on 44,290 earlier chronological transactions and evaluated on a separate 44,291-transaction partition. Calibration bins have unequal
   sample counts, so points with fewer observations are less stable.
   The final untouched test set has not been evaluated.
 </p>

@@ -4,6 +4,7 @@ import {
   ChevronDown,
   CircleHelp,
   LayoutDashboard,
+  History,
   Settings,
   Shield,
   ShieldAlert,
@@ -42,6 +43,9 @@ function Sidebar() {
           <ShieldAlert size={18} /> Risk Analysis
         </NavLink>
 
+        <NavLink to="/monitoring-history" className={navClass}>
+          <History size={18} /> Monitoring History
+        </NavLink>
         <NavLink to="/model-analytics" className={navClass}>
           <SlidersHorizontal size={18} /> Model Analytics
         </NavLink>

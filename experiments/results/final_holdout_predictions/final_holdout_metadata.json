@@ -1,0 +1,39 @@
+{
+  "experiment": "final_chronological_holdout",
+  "prediction_stage": "label_blind",
+  "test_target_loaded": false,
+  "test_target_used": false,
+  "test_rows": 88580,
+  "input_feature_count": 431,
+  "model_artifacts": {
+    "frozen": "artifacts\\temporal\\baseline_model.joblib",
+    "retrained": "artifacts\\temporal\\retrained_model.joblib",
+    "recent_only": "artifacts\\temporal\\recent_only_model.joblib",
+    "matched_size": "artifacts\\temporal\\matched_size_model.joblib"
+  },
+  "calibration_files": {
+    "initial_frozen": "experiments\\results\\temporal_predictions\\initial_calibration_predictions.parquet",
+    "adaptation_frozen": "experiments\\results\\temporal_predictions\\adaptation_calibration_frozen_predictions.parquet",
+    "adaptation_retrained": "experiments\\results\\temporal_predictions\\adaptation_calibration_retrained_predictions.parquet",
+    "adaptation_recent_only": "experiments\\results\\temporal_predictions\\adaptation_calibration_recent_only_predictions.parquet",
+    "adaptation_matched_size": "experiments\\results\\temporal_predictions\\adaptation_calibration_matched_size_predictions.parquet"
+  },
+  "strategies": [
+    "frozen_uncalibrated",
+    "frozen_static_sigmoid",
+    "frozen_static_isotonic",
+    "frozen_adaptive_sigmoid",
+    "frozen_adaptive_isotonic",
+    "retrained_uncalibrated",
+    "retrained_sigmoid",
+    "retrained_isotonic",
+    "recent_only_uncalibrated",
+    "recent_only_sigmoid",
+    "recent_only_isotonic",
+    "matched_size_uncalibrated",
+    "matched_size_sigmoid",
+    "matched_size_isotonic"
+  ],
+  "prediction_file": "experiments\\results\\final_holdout_predictions\\final_holdout_probabilities.parquet",
+  "calibration_protocol": "Frozen static calibrators use initial frozen-model calibration predictions. Frozen adaptive calibrators use adaptation frozen-model predictions. Retrained, recent-only, and matched-size adaptive calibrators use their respective adaptation-calibration predictions."
+}

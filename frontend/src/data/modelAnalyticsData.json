@@ -1,0 +1,254 @@
+{
+    "experiment":  {
+                       "name":  "xgboost_full_data",
+                       "status":  "validation_evaluated",
+                       "model":  "XGBClassifier",
+                       "dataset":  "IEEE-CIS Fraud Detection",
+                       "threshold":  0.5,
+                       "trainingRows":  413379,
+                       "validationRows":  88581,
+                       "featureCount":  431,
+                       "bestIteration":  597
+                   },
+    "metrics":  {
+                    "averagePrecision":  0.58540296443455564,
+                    "rocAuc":  0.91715320898298169,
+                    "precision":  0.85660091047040976,
+                    "recall":  0.37113740959894809,
+                    "f1Score":  0.51788990825688075,
+                    "brierScore":  0.020296070724725723,
+                    "logLoss":  0.084045238792896271
+                },
+    "thresholdEvaluationRows":  88581,
+    "calibrationFitRows":  44290,
+    "calibrationEvaluationRows":  44291,
+    "thresholdData":  [
+                          {
+                              "threshold":  0.05,
+                              "precision":  0.27472389558232929,
+                              "recall":  0.71959237343852733,
+                              "f1":  0.39763851044504994,
+                              "flaggedCount":  7968,
+                              "flaggedRate":  0.0899515697497206
+                          },
+                          {
+                              "threshold":  0.1,
+                              "precision":  0.43763364219529577,
+                              "recall":  0.60552268244575935,
+                              "f1":  0.508067852709971,
+                              "flaggedCount":  4209,
+                              "flaggedRate":  0.0475158329664375
+                          },
+                          {
+                              "threshold":  0.15,
+                              "precision":  0.54982032015681148,
+                              "recall":  0.55325443786982254,
+                              "f1":  0.55153203342618384,
+                              "flaggedCount":  3061,
+                              "flaggedRate":  0.034555943148079159
+                          },
+                          {
+                              "threshold":  0.2,
+                              "precision":  0.62875450540648781,
+                              "recall":  0.51610782380013154,
+                              "f1":  0.56688933020400789,
+                              "flaggedCount":  2497,
+                              "flaggedRate":  0.028188889265192311
+                          },
+                          {
+                              "threshold":  0.25,
+                              "precision":  0.69277108433734935,
+                              "recall":  0.49145299145299143,
+                              "f1":  0.575,
+                              "flaggedCount":  2158,
+                              "flaggedRate":  0.02436188347388266
+                          },
+                          {
+                              "threshold":  0.3,
+                              "precision":  0.74866595517609391,
+                              "recall":  0.46120973044049968,
+                              "f1":  0.57078925956061843,
+                              "flaggedCount":  1874,
+                              "flaggedRate":  0.021155778327180772
+                          },
+                          {
+                              "threshold":  0.35,
+                              "precision":  0.77982195845697333,
+                              "recall":  0.43195266272189348,
+                              "f1":  0.55595515125872641,
+                              "flaggedCount":  1685,
+                              "flaggedRate":  0.019022137930255922
+                          },
+                          {
+                              "threshold":  0.4,
+                              "precision":  0.80869001297016863,
+                              "recall":  0.40992767915844841,
+                              "f1":  0.544066317626527,
+                              "flaggedCount":  1542,
+                              "flaggedRate":  0.017407796254275746
+                          },
+                          {
+                              "threshold":  0.45,
+                              "precision":  0.8326271186440678,
+                              "recall":  0.3875739644970414,
+                              "f1":  0.52893674293405113,
+                              "flaggedCount":  1416,
+                              "flaggedRate":  0.015985369322992514
+                          },
+                          {
+                              "threshold":  0.5,
+                              "precision":  0.85660091047040976,
+                              "recall":  0.37113740959894809,
+                              "f1":  0.51788990825688075,
+                              "flaggedCount":  1318,
+                              "flaggedRate":  0.014879037265327778
+                          },
+                          {
+                              "threshold":  0.55,
+                              "precision":  0.86829268292682926,
+                              "recall":  0.35108481262327418,
+                              "f1":  0.5,
+                              "flaggedCount":  1230,
+                              "flaggedRate":  0.013885596233955362
+                          },
+                          {
+                              "threshold":  0.6,
+                              "precision":  0.880349344978166,
+                              "recall":  0.33136094674556216,
+                              "f1":  0.48149032720324814,
+                              "flaggedCount":  1145,
+                              "flaggedRate":  0.012926022510470642
+                          },
+                          {
+                              "threshold":  0.65,
+                              "precision":  0.892175572519084,
+                              "recall":  0.30736357659434582,
+                              "f1":  0.45721271393643031,
+                              "flaggedCount":  1048,
+                              "flaggedRate":  0.011830979555435139
+                          },
+                          {
+                              "threshold":  0.7,
+                              "precision":  0.905894519131334,
+                              "recall":  0.28796844181459569,
+                              "f1":  0.43701671239710649,
+                              "flaggedCount":  967,
+                              "flaggedRate":  0.010916562242467346
+                          },
+                          {
+                              "threshold":  0.75,
+                              "precision":  0.91431792559188274,
+                              "recall":  0.26660092044707429,
+                              "f1":  0.41282769152456095,
+                              "flaggedCount":  887,
+                              "flaggedRate":  0.010013434032128786
+                          },
+                          {
+                              "threshold":  0.8,
+                              "precision":  0.9266169154228856,
+                              "recall":  0.24490466798159105,
+                              "f1":  0.3874154966198648,
+                              "flaggedCount":  804,
+                              "flaggedRate":  0.0090764385139025291
+                          },
+                          {
+                              "threshold":  0.85,
+                              "precision":  0.93732193732193736,
+                              "recall":  0.21630506245890863,
+                              "f1":  0.35149572649572647,
+                              "flaggedCount":  702,
+                              "flaggedRate":  0.0079249500457208664
+                          },
+                          {
+                              "threshold":  0.9,
+                              "precision":  0.94295302013422821,
+                              "recall":  0.18474687705456935,
+                              "f1":  0.30896096756459596,
+                              "flaggedCount":  596,
+                              "flaggedRate":  0.0067283051670222731
+                          },
+                          {
+                              "threshold":  0.95,
+                              "precision":  0.95169082125603865,
+                              "recall":  0.12952005259697569,
+                              "f1":  0.22800925925925927,
+                              "flaggedCount":  414,
+                              "flaggedRate":  0.0046736884885020492
+                          }
+                      ],
+    "calibrationData":  [
+                            {
+                                "predicted":  0.011600453811952825,
+                                "observed":  0.014543714866642746,
+                                "count":  41805
+                            },
+                            {
+                                "predicted":  0.13792902461472958,
+                                "observed":  0.13812154696132597,
+                                "count":  1086
+                            },
+                            {
+                                "predicted":  0.24356455036141986,
+                                "observed":  0.19373219373219372,
+                                "count":  351
+                            },
+                            {
+                                "predicted":  0.34764823151961421,
+                                "observed":  0.27310924369747897,
+                                "count":  238
+                            },
+                            {
+                                "predicted":  0.45100747386140694,
+                                "observed":  0.52666666666666662,
+                                "count":  150
+                            },
+                            {
+                                "predicted":  0.545550497092989,
+                                "observed":  0.47580645161290325,
+                                "count":  124
+                            },
+                            {
+                                "predicted":  0.64611554778914515,
+                                "observed":  0.573170731707317,
+                                "count":  82
+                            },
+                            {
+                                "predicted":  0.74684172213044364,
+                                "observed":  0.651685393258427,
+                                "count":  89
+                            },
+                            {
+                                "predicted":  0.85322244829721727,
+                                "observed":  0.81111111111111112,
+                                "count":  90
+                            },
+                            {
+                                "predicted":  0.96778099879263046,
+                                "observed":  0.87681159420289856,
+                                "count":  276
+                            }
+                        ],
+    "calibrationComparison":  [
+                                  {
+                                      "method":  "uncalibrated",
+                                      "brierScore":  0.021983191718003284,
+                                      "logLoss":  0.090604109171201527,
+                                      "ece":  0.0056927836694698024,
+                                      "averagePrecision":  0.49103018963129341
+                                  },
+                                  {
+                                      "method":  "sigmoid",
+                                      "brierScore":  0.02197020867444064,
+                                      "logLoss":  0.09075295757742087,
+                                      "ece":  0.005008436221814746,
+                                      "averagePrecision":  0.49103018963129341
+                                  },
+                                  {
+                                      "method":  "isotonic",
+                                      "brierScore":  0.022129203775474966,
+                                      "logLoss":  0.095573885379725124,
+                                      "ece":  0.0057127815090738812,
+                                      "averagePrecision":  0.4758699728393212
+                                  }
+                              ]
+}

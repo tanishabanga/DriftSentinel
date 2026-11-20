@@ -1,4 +1,4 @@
-﻿
+
 # ============================================================
 # PYTHON
 # ============================================================
@@ -28,7 +28,27 @@ data/processed/*
 # MODEL ARTIFACTS
 # ============================================================
 artifacts/*
-!artifacts/.gitkeep
+
+!artifacts/xgboost/
+artifacts/xgboost/*
+!artifacts/xgboost/feature_schema.json
+!artifacts/xgboost/fraud_model.json
+!artifacts/xgboost/calibration/
+artifacts/xgboost/calibration/*
+!artifacts/xgboost/calibration/isotonic_calibrator.joblib
+!artifacts/xgboost/calibration/sigmoid_calibrator.joblib
+# Required temporal research models
+!artifacts/temporal/
+artifacts/temporal/*
+!artifacts/temporal/baseline_model.joblib
+!artifacts/temporal/matched_size_model.joblib
+!artifacts/temporal/recent_only_model.joblib
+!artifacts/temporal/retrained_model.joblib
+
+# Required monitoring runtime profile
+!artifacts/monitoring/
+artifacts/monitoring/*
+!artifacts/monitoring/reference_profile.json
 
 # ============================================================
 # EXPERIMENT OUTPUTS
@@ -80,3 +100,11 @@ coverage.xml
 # ============================================================
 .DS_Store
 Thumbs.db
+
+# Local backups and duplicate archives
+*.bak
+/frontend.zip
+/src.zip
+
+# Generated local prediction output
+/driftsentinel_predictions.csv

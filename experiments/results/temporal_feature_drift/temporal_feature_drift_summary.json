@@ -1,0 +1,36 @@
+{
+  "experiment": "temporal_feature_distribution_drift",
+  "target_loaded": false,
+  "model_features": 431,
+  "numerical_features": 400,
+  "categorical_features": 31,
+  "partitions": {
+    "train": {
+      "rows": 413379,
+      "file": "data\\processed\\splits\\train.parquet"
+    },
+    "validation_evaluation": {
+      "rows": 29527,
+      "file": "data\\processed\\temporal\\evaluation.parquet"
+    },
+    "final_holdout": {
+      "rows": 88580,
+      "file": "data\\processed\\splits\\test.parquet"
+    }
+  },
+  "comparisons": [
+    "train_vs_validation_evaluation",
+    "train_vs_final_holdout",
+    "validation_evaluation_vs_final_holdout"
+  ],
+  "methods": {
+    "numerical": "Two-sample Kolmogorov-Smirnov statistic and p-value; PSI using reference-period quantile bins with missingness as an explicit bin.",
+    "categorical": "Squared Jensen-Shannon distance (base 2), including missing values as a category.",
+    "missingness": "Comparison minus reference, percentage points."
+  },
+  "psi_quantile_bins": 10,
+  "psi_smoothing_epsilon": 1e-06,
+  "interpretation_note": "These are descriptive feature-distribution comparisons. They measure changes in P(X), not concept drift in P(Y|X). KS p-values are sample-size sensitive and should not be interpreted alone.",
+  "detail_file": "experiments\\results\\temporal_feature_drift\\temporal_feature_drift.csv",
+  "feature_comparisons": 1293
+}

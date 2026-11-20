@@ -13,7 +13,7 @@ import {
   YAxis,
 } from "recharts";
 
-import { decisionPolicyData } from "../../data/mockData";
+import decisionPolicyData from "../../data/decisionPolicyData.json";
 
 const scenarios = Object.entries(decisionPolicyData).map(
   ([value, scenario]) => ({
@@ -39,7 +39,7 @@ function DecisionPolicy() {
   );
 
   const selected = data.sigmoid[data.sigmoid.length - 1];
-  const baseline = data.sigmoid[0];
+
 
   return (
     <section className="decision-policy-section">

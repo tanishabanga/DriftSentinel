@@ -1,0 +1,54 @@
+{
+    "manifest_version":  1,
+    "project":  "DriftSentinel",
+    "artifact_bundle":  "xgboost-inference",
+    "runtime":  {
+                    "python":  "3.11.9",
+                    "numpy":  "2.4.6",
+                    "pandas":  "3.1.1",
+                    "scikit_learn":  "1.9.1",
+                    "joblib":  "1.6.0",
+                    "scipy":  "1.17.1",
+                    "xgboost":  "3.2.0"
+                },
+    "reference_profile":  {
+                              "source":  "data/processed/splits/train.parquet",
+                              "rows":  413379,
+                              "features":  431,
+                              "numerical_features":  392,
+                              "categorical_features":  39,
+                              "categorical_top_k":  50
+                          },
+    "artifacts":  {
+                      "xgboost_model":  {
+                                            "path":  "artifacts/xgboost/fraud_model.json",
+                                            "size_bytes":  47183193,
+                                            "sha256":  "BEBF9F91E78CCC18032441A41D4A696166DB1589CBA84C46E8719AB13161F711",
+                                            "required_for_runtime":  true
+                                        },
+                      "feature_schema":  {
+                                             "path":  "artifacts/xgboost/feature_schema.json",
+                                             "size_bytes":  370820,
+                                             "sha256":  "97854B4B3A30CA2DDC8327C4410229EDAE78B8FAA34D4A0D95BF3A0D6A7E08BF",
+                                             "required_for_runtime":  true
+                                         },
+                      "sigmoid_calibrator":  {
+                                                 "path":  "artifacts/xgboost/calibration/sigmoid_calibrator.joblib",
+                                                 "size_bytes":  961,
+                                                 "sha256":  "5B6CB9A700F8871B6BED82B0F48CA62BEA98D396882576E886E0E163BF2E44DB",
+                                                 "required_for_runtime":  true
+                                             },
+                      "reference_profile":  {
+                                                "path":  "artifacts/monitoring/reference_profile.json",
+                                                "size_bytes":  196053,
+                                                "sha256":  "2291C734767854DE48D654584776BDCD3AF4B1C6B2285F7A63DB9BEC8E4C3DB3",
+                                                "required_for_runtime":  true
+                                            },
+                      "optional_isotonic_calibrator":  {
+                                                           "path":  "artifacts/xgboost/calibration/isotonic_calibrator.joblib",
+                                                           "size_bytes":  2361,
+                                                           "sha256":  "DC29DCE3C4082BF8BB2257EC046AA5B4415B32F4A67429841ED169A68B560C85",
+                                                           "required_for_runtime":  false
+                                                       }
+                  }
+}

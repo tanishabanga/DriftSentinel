@@ -1,0 +1,201 @@
+{
+  "experiment": "enhanced_temporal_feature_distribution_drift",
+  "target_loaded": false,
+  "feature_count": 431,
+  "numerical_features": 400,
+  "categorical_features": 31,
+  "feature_comparisons": 1293,
+  "partitions": {
+    "train": {
+      "rows": 413379,
+      "file": "data\\processed\\splits\\train.parquet"
+    },
+    "validation_evaluation": {
+      "rows": 29527,
+      "file": "data\\processed\\temporal\\evaluation.parquet"
+    },
+    "final_holdout": {
+      "rows": 88580,
+      "file": "data\\processed\\splits\\test.parquet"
+    }
+  },
+  "methods": {
+    "combined_numerical_psi": "Reference-period quantile bins, including missingness as an explicit bin.",
+    "observed_only_numerical_psi": "Reference-period quantile bins, calculated after excluding missing and non-finite observations.",
+    "combined_categorical_js": "Jensen-Shannon divergence including missingness as a category.",
+    "observed_only_categorical_js": "Jensen-Shannon divergence after excluding missing categories.",
+    "missingness": "Comparison-period missing percentage minus reference-period missing percentage, in percentage points.",
+    "ks_multiple_testing": "Benjamini-Hochberg false discovery rate correction, applied separately to the 400 numerical KS tests within each comparison."
+  },
+  "psi_quantile_bins": 10,
+  "psi_smoothing_epsilon": 1e-06,
+  "comparison_summaries": {
+    "train_vs_validation_evaluation": {
+      "numerical_ks_mean": 0.03266417605643204,
+      "numerical_ks_median": 0.023624891503699064,
+      "ks_bh_q_below_0_05": 223,
+      "observed_only_psi_mean": 0.046330623538645546,
+      "observed_only_psi_median": 0.003549963451556335,
+      "combined_psi_mean": 0.054726348221584765,
+      "observed_only_js_mean": 0.028227776017889533,
+      "combined_js_mean": 0.020424879051543405,
+      "mean_absolute_missingness_change_pp": 6.361974128548682,
+      "top_numerical_observed_drift": [
+        {
+          "feature": "id_13",
+          "observed_only_psi": 2.9485136847545927
+        },
+        {
+          "feature": "V152",
+          "observed_only_psi": 1.3757851521420679
+        },
+        {
+          "feature": "V151",
+          "observed_only_psi": 1.2464644875729276
+        },
+        {
+          "feature": "V145",
+          "observed_only_psi": 1.1910334869167845
+        },
+        {
+          "feature": "V144",
+          "observed_only_psi": 1.1800085850808208
+        }
+      ],
+      "top_categorical_observed_drift": [
+        {
+          "feature": "id_31",
+          "observed_only_js": 0.4455743400894769
+        },
+        {
+          "feature": "id_30",
+          "observed_only_js": 0.19147769542778548
+        },
+        {
+          "feature": "DeviceInfo",
+          "observed_only_js": 0.10350674687691502
+        },
+        {
+          "feature": "id_38",
+          "observed_only_js": 0.04278723326834306
+        },
+        {
+          "feature": "id_33",
+          "observed_only_js": 0.042702538230969825
+        }
+      ]
+    },
+    "train_vs_final_holdout": {
+      "numerical_ks_mean": 0.046148224273031266,
+      "numerical_ks_median": 0.02438250997807445,
+      "ks_bh_q_below_0_05": 301,
+      "observed_only_psi_mean": 0.04685159860806234,
+      "observed_only_psi_median": 0.0023008941864553086,
+      "combined_psi_mean": 0.03550065676486933,
+      "observed_only_js_mean": 0.031535758643928234,
+      "combined_js_mean": 0.0187991805998031,
+      "mean_absolute_missingness_change_pp": 4.856785043503356,
+      "top_numerical_observed_drift": [
+        {
+          "feature": "id_13",
+          "observed_only_psi": 3.0387588561667918
+        },
+        {
+          "feature": "V152",
+          "observed_only_psi": 1.3757851521420679
+        },
+        {
+          "feature": "V160",
+          "observed_only_psi": 1.3280554949895276
+        },
+        {
+          "feature": "V145",
+          "observed_only_psi": 1.3204125404328324
+        },
+        {
+          "feature": "V151",
+          "observed_only_psi": 1.2464644875729276
+        }
+      ],
+      "top_categorical_observed_drift": [
+        {
+          "feature": "id_31",
+          "observed_only_js": 0.4985032241914841
+        },
+        {
+          "feature": "id_30",
+          "observed_only_js": 0.20644248656462807
+        },
+        {
+          "feature": "DeviceInfo",
+          "observed_only_js": 0.09060310040371725
+        },
+        {
+          "feature": "id_33",
+          "observed_only_js": 0.05398116359390427
+        },
+        {
+          "feature": "id_38",
+          "observed_only_js": 0.04686628381964425
+        }
+      ]
+    },
+    "validation_evaluation_vs_final_holdout": {
+      "numerical_ks_mean": 0.03693296811691529,
+      "numerical_ks_median": 0.02102086134588812,
+      "ks_bh_q_below_0_05": 260,
+      "observed_only_psi_mean": 0.017801884797113147,
+      "observed_only_psi_median": 0.0028973739202378017,
+      "combined_psi_mean": 0.008145513943375005,
+      "observed_only_js_mean": 0.022748194611354567,
+      "combined_js_mean": 0.004938254002278563,
+      "mean_absolute_missingness_change_pp": 1.591873598876335,
+      "top_numerical_observed_drift": [
+        {
+          "feature": "id_13",
+          "observed_only_psi": 0.4843157709498306
+        },
+        {
+          "feature": "id_07",
+          "observed_only_psi": 0.1620871701476329
+        },
+        {
+          "feature": "V332",
+          "observed_only_psi": 0.1458800650459174
+        },
+        {
+          "feature": "V166",
+          "observed_only_psi": 0.1365248670180956
+        },
+        {
+          "feature": "V339",
+          "observed_only_psi": 0.13545917620526457
+        }
+      ],
+      "top_categorical_observed_drift": [
+        {
+          "feature": "id_31",
+          "observed_only_js": 0.48982881118589144
+        },
+        {
+          "feature": "DeviceInfo",
+          "observed_only_js": 0.08846849158939153
+        },
+        {
+          "feature": "id_33",
+          "observed_only_js": 0.04373815526486119
+        },
+        {
+          "feature": "id_30",
+          "observed_only_js": 0.02731917338458273
+        },
+        {
+          "feature": "id_23",
+          "observed_only_js": 0.01735778308875248
+        }
+      ]
+    }
+  },
+  "interpretation_note": "These metrics describe marginal feature-distribution changes P(X). They do not establish concept drift P(Y|X), nor do they prove that feature drift caused changes in predictive performance. PSI depends on binning choices; KS significance is sample-size sensitive. Observed-only metrics exclude missing values, so missingness changes must be interpreted separately.",
+  "detail_file": "experiments\\results\\temporal_feature_drift\\temporal_feature_drift_enhanced.csv"
+}

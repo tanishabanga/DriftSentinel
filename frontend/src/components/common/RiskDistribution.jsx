@@ -1,4 +1,3 @@
-
 import {
   Pie,
   PieChart,
@@ -7,15 +6,27 @@ import {
   Tooltip,
 } from "recharts";
 
-import { riskData } from "../../data/mockData";
+const BANDS = [
+  { name: "0-40% Lower", key: "lower", color: "#269D83" },
+  { name: "40-80% Elevated", key: "elevated", color: "#E8A642" },
+  { name: "80-100% Highest", key: "highest", color: "#F47781" },
+];
 
-function RiskDistribution() {
+function RiskDistribution({ counts = {} }) {
+  const data = BANDS.map((band) => ({
+    name: band.name,
+    value: Number(counts[band.key]) || 0,
+    color: band.color,
+  }));
+
+  const total = data.reduce((sum, item) => sum + item.value, 0);
+
   return (
     <div className="panel risk-panel">
       <div className="panel-heading">
         <div>
-          <h3>Risk distribution</h3>
-          <p>Transactions by predicted risk level</p>
+          <h3>Probability distribution</h3>
+          <p>Full-batch predictions grouped by calibrated probability</p>
         </div>
       </div>
 
@@ -23,7 +34,7 @@ function RiskDistribution() {
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
-              data={riskData}
+              data={data}
               dataKey="value"
               nameKey="name"
               innerRadius={68}
@@ -31,34 +42,39 @@ function RiskDistribution() {
               paddingAngle={4}
               stroke="none"
             >
-              {riskData.map((item) => (
+              {data.map((item) => (
                 <Cell key={item.name} fill={item.color} />
               ))}
             </Pie>
+
             <Tooltip
               contentStyle={{
                 background: "#171B25",
                 border: "1px solid #303747",
                 borderRadius: 10,
               }}
+              formatter={(value, name) => [value, name]}
             />
           </PieChart>
         </ResponsiveContainer>
 
         <div className="risk-center">
-          <strong>39.7K</strong>
-          <span>Transactions</span>
+          <strong>{total.toLocaleString()}</strong>
+          <span>Predictions</span>
         </div>
       </div>
 
       <div className="risk-legend">
-        {riskData.map((item) => (
+        {data.map((item) => (
           <div className="risk-legend-item" key={item.name}>
             <span>
               <i style={{ background: item.color }} />
               {item.name}
             </span>
-            <strong>{item.value}%</strong>
+            <strong>
+              {item.value.toLocaleString()} (
+              {total > 0 ? ((item.value / total) * 100).toFixed(1) : "0.0"}%)
+            </strong>
           </div>
         ))}
       </div>
